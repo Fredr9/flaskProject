@@ -11,7 +11,7 @@ users = []
 
 @app.route('/chat-rooms')
 def chatRooms():
-    return 'Hallo Joakim!'
+    return 'Here should the chat-rooms appear'
 
 
 # Gets all the users in the system.
@@ -50,7 +50,7 @@ def delete(userId):
         return "Cant find user"
 
     del users[index]
-    return "User deletet"
+    return "User deleted"
 
 
 # Function that find index of user
