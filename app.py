@@ -1,19 +1,29 @@
 import uuid
 
 from flask import Flask, request, jsonify
+from flask_restful import Api, Resource, reqparse, abort
 import json
 
 app = Flask(__name__)
+api = Api(app)
+
 
 # State when starting
 users = []
 
-
+# Define chatRooms
 @app.route('/chat-rooms')
 def chatRooms():
     return 'Here should the chat-rooms appear'
 
+#Abort functions
 
+#reqparser() use
+
+# define the classes chatrooms, messages and users
+# functions to do a specific task
+# command Api.add_resource(name of the class, route)
+# after run app.run(debug, deport)
 # Gets all the users in the system.
 @app.route('/users', methods=['GET'])
 def getUsers():
@@ -78,3 +88,7 @@ class User:
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+
+#class Chat-rooms:
+
+#class Messages:
