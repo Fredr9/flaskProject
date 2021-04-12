@@ -17,7 +17,6 @@ class Chatroom:
         self.id = str(id)
         self.roomname = roomname
 
-
     def toJSONChatroom(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
@@ -34,23 +33,18 @@ class User:
 # Define chatRooms
 #
 
-@app.route('/chat-rooms')
+@app.route('/api/chat-rooms')
 def chatRooms():
     return 'Here should the chat-rooms appear, E.G 127.0.0.1:5000/chat-rooms'
 
-@app.route('/chat-room', methods=['GET'])
+
+@app.route('/api/chat-room', methods=['GET'])
 def getChatrooms():
     return jsonify([chatroom.toJSONChatroom() for chatroom in chatrooms])
 
-'''
-@app.route('/chat-room', methods=['GET'])
-def getChatrooms():
-    return jsonify([chatroom.toJSONChatroom()] for chatroom in chatrooms)
-'''
-
 
 # ADd new chatroom
-@app.route('/chat-room', methods=['POST'])
+@app.route('/api/chat-room', methods=['POST'])
 def addChatrooms():
     content = request.json
     chatroomname = content['chat-room']
@@ -61,7 +55,7 @@ def addChatrooms():
     return jsonify(chatroom.id)
 
 
-@app.route('/chat-room/<chatroomID>', methods=['GET'])
+@app.route('/api/chat-room/<chatroomID>', methods=['GET'])
 def getChatroom(chatroomID):
     for i in range(len(chatrooms)):
         if chatrooms[i].chatroomID == chatroomID:
@@ -82,13 +76,13 @@ def getChatroom(chatroomID):
 # after run app.run(debug, deport)
 # Gets all the users in the system.
 
-@app.route('/users', methods=['GET'])
+@app.route('/api/users', methods=['GET'])
 def getUsers():
     return jsonify([user.toJSON() for user in users])
 
 
 # ADd new user
-@app.route('/users', methods=['POST'])
+@app.route('/api/users', methods=['POST'])
 def addUsers():
     content = request.json
     username = content['username']
@@ -100,7 +94,7 @@ def addUsers():
 
 
 # Find one specific user
-@app.route('/users/<userId>', methods=['GET'])
+@app.route('/api/users/<userId>', methods=['GET'])
 def getUser(userId):
     for i in range(len(users)):
         if users[i].id == userId:
@@ -110,7 +104,7 @@ def getUser(userId):
 
 
 # Delete one specific user
-@app.route('/users/<userId>', methods=['DELETE'])
+@app.route('/api/users/<userId>', methods=['DELETE'])
 def delete(userId):
     index = findSpecificIndex(userId)
     if index == -1:
@@ -128,8 +122,12 @@ def findSpecificIndex(userId):
     return -1  # Did not find user
 
 
-@app.route('/messages')
+@app.route('/api/room/room-id/messages')
 def getMessages():
+    return 'Hello, this is a message'
+
+@app.route('/api/room/room-id/user-id/messages')
+def getAllMessagesForUSer():
     return 'Hello, this is a message'
 
 
