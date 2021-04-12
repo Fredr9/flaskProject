@@ -30,12 +30,19 @@ class User:
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
+class Message:
+    '''    def __init__(self):
+    skal få tak i alle meldinger
+    også en funksjon som gjør at en bruker skal få tak i en eller flere meldinger
+'''
+
 # Define chatRooms
 #
 
 @app.route('/api/chat-rooms')
 def chatRooms():
-    return 'Here should the chat-rooms appear, E.G 127.0.0.1:5000/chat-rooms'
+    return '<h1>Wrong path </h1>' \
+           '<p1>If you want to go too the chat-rooms go to 127.0.0.1:5000/chat-room</p1>'
 
 
 @app.route('/api/chat-room', methods=['GET'])
