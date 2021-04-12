@@ -18,7 +18,7 @@ def chatRooms():
     return 'Here should the chat-rooms appear, E.G 127.0.0.1:5000/chat-rooms'
 
 # ADd new chatroom
-@app.route('/chat-rooms', methods=['POST'])
+@app.route('/chat-room', methods=['POST'])
 def addChatroom():
     content = request.json
     chatroomname = content['chat-room']
@@ -49,7 +49,8 @@ class Chatroom:
         self.roomname = str(roomname)
         self.roomid = roomid
 
-
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
 
