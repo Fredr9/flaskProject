@@ -10,17 +10,49 @@ api = Api(app)
 
 # State when starting
 users = []
+chatrooms = []
 
 # Define chatRooms
 @app.route('/chat-rooms')
 def chatRooms():
-    return 'Here should the chat-rooms appear'
+    return 'Here should the chat-rooms appear, E.G 127.0.0.1:5000/chat-rooms'
+
+# ADd new chatroom
+@app.route('/chat-rooms', methods=['POST'])
+def addChatroom():
+    content = request.json
+    chatroomname = content['chat-room']
+    # Random ID to users
+    idchatroom = uuid.uuid1()
+    chatroom = Chatroom(idchatroom, chatroomname)
+    users.append(chatroom)
+    return jsonify(chatroom.id)
 
 #Abort functions
 
 #reqparser() use
 
 # define the classes chatrooms, messages and users
+
+class User:
+    def __init__(self, id, username):
+        self.id = str(id)
+        self.username = username
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+
+
+
+class Chatroom:
+    def __init__(self, roomname, roomid):
+        self.roomname = str(roomname)
+        self.roomid = roomid
+
+
+
+
+
 # functions to do a specific task
 # command Api.add_resource(name of the class, route)
 # after run app.run(debug, deport)
@@ -81,14 +113,5 @@ def server_start():
     return 'You need to specify path'
 
 
-class User:
-    def __init__(self, id, username):
-        self.id = str(id)
-        self.username = username
-
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
-
-#class Chat-rooms:
 
 #class Messages:
