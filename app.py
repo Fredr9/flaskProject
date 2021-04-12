@@ -1,15 +1,20 @@
 import uuid
+from random import random, choice
 
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse, abort
 import json
 
+
+url = "http://127.0.0.1:5000/"
 app = Flask(__name__)
 api = Api(app)
 
 # State when starting
 users = []
 chatrooms = []
+idUser = [1,2,3,4,5,6]
+
 
 
 class Chatroom:
@@ -35,6 +40,7 @@ class Message:
     skal få tak i alle meldinger
     også en funksjon som gjør at en bruker skal få tak i en eller flere meldinger
 '''
+
 
 # Define chatRooms
 #
@@ -95,6 +101,8 @@ def addUsers():
     username = content['username']
     # Random ID to users
     id = uuid.uuid1()
+    #id = choice(idUser)
+    # Prøver å lage en id som er litt mindre kompleks
     user = User(id, username)
     users.append(user)
     return jsonify(user.id)
@@ -133,6 +141,7 @@ def findSpecificIndex(userId):
 def getMessages():
     return 'Hello, this is a message'
 
+
 @app.route('/api/room/room-id/user-id/messages')
 def getAllMessagesForUSer():
     return 'Hello, this is a message'
@@ -142,4 +151,8 @@ def getAllMessagesForUSer():
 def server_start():
     return 'You need to specify path'
 
+
 # class Messages:
+
+if __name__ == "__main__":
+    app.run(debug=True)
