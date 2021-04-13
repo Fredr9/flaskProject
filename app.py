@@ -5,7 +5,6 @@ from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse, abort
 import json
 
-
 url = "http://127.0.0.1:5000/"
 app = Flask(__name__)
 api = Api(app)
@@ -13,8 +12,7 @@ api = Api(app)
 # State when starting
 users = []
 chatrooms = []
-idUser = [1,2,3,4,5,6]
-
+idUser = [1, 2, 3, 4, 5, 6]
 
 
 class Chatroom:
@@ -38,33 +36,31 @@ class User:
 
 
 class Message:
-      def __init__(self, text, user):
-          self.id = str(id)
-          self.text = text
-          self.user = user
+    def __init__(self, text, user):
+        self.id = str(id)
+        self.text = text
+        self.user = user
 
-      def toJSON(self):
-          return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
-
-
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
 # Define chatRooms
 #
-
-@app.route('/api/chat-rooms')
+# If you forget to type the s at the end
+@app.route('/api/chat-room')
 def chatRooms():
     return '<h1>Wrong path </h1>' \
-           '<p1>If you want to go too the chat-rooms go to 127.0.0.1:5000/chat-room</p1>'
+           '<p1>If you want to go too the chat-rooms go to 127.0.0.1:5000/chat-rooms</p1>'
 
-
-@app.route('/api/chat-room', methods=['GET'])
+# Show all the chatrooms:
+@app.route('/api/chat-rooms', methods=['GET'])
 def getChatrooms():
     return jsonify([chatroom.toJSONChatroom() for chatroom in chatrooms])
 
 
 # ADd new chatroom
-@app.route('/api/chat-room', methods=['POST'])
+@app.route('/api/chat-rooms', methods=['POST'])
 def addChatrooms():
     content = request.json
     chatroomname = content['chat-room']
@@ -74,12 +70,27 @@ def addChatrooms():
     chatrooms.append(chatroom)
     return jsonify(chatroom.id)
 
+# Get users from a specific room:
+@app.route('/api/chat-rooms/<chatroomID>/users', methods=['GET'])
+def getUsersInChatroom(chatroomID):
+    room = findChatRoom(chatroomID)
+    if (room == None):
+        return "Cant find room"
 
-@app.route('/api/chat-room/<chatroomID>', methods=['GET'])
+    return jsonify([user.toJSON() for user in room.users])
+
+def findChatRoom(chatroomID):
+    for i in range(len(chatrooms)):
+        if chatrooms[i].id == chatroomID:
+            return chatrooms[i]
+    return None
+
+
+@app.route('/api/chat-rooms/<chatroomID>', methods=['GET'])
 def getChatroom(chatroomID):
     for i in range(len(chatrooms)):
         if chatrooms[i].chatroomID == chatroomID:
-            return chatrooms[i].toJson()
+            return chatrooms[i].toJSON()
 
     return "No such chatroom"
 
@@ -107,8 +118,8 @@ def addUsers():
     content = request.json
     username = content['username']
     # Random ID to users
-    #id = uuid.uuid1()
-    id = choice(idUser)
+    id = uuid.uuid1()
+    # id = choice(idUser)
     # Prøver å lage en id som er litt mindre kompleks
     user = User(id, username)
     users.append(user)
@@ -120,7 +131,7 @@ def addUsers():
 def getUser(userId):
     for i in range(len(users)):
         if users[i].id == userId:
-            return users[i].toJson()
+            return users[i].toJSON()
 
     return "No such user"
 
