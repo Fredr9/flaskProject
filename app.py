@@ -21,6 +21,8 @@ class Chatroom:
     def __init__(self, id, roomname):
         self.id = str(id)
         self.roomname = roomname
+        self.users = []
+        self.messages = []
 
     def toJSONChatroom(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
@@ -36,10 +38,15 @@ class User:
 
 
 class Message:
-    '''    def __init__(self):
-    skal få tak i alle meldinger
-    også en funksjon som gjør at en bruker skal få tak i en eller flere meldinger
-'''
+      def __init__(self, text, user):
+          self.id = str(id)
+          self.text = text
+          self.user = user
+
+      def toJSON(self):
+          return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+
+
 
 
 # Define chatRooms
