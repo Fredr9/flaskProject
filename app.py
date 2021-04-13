@@ -79,6 +79,25 @@ def getUsersInChatroom(chatroomID):
 
     return jsonify([user.toJSON() for user in room.users])
 
+# Add users to a room
+@app.route('/api/chat-rooms/<chatroomID>/users', methods=['POST'])
+def addUserChatroom(chatroomID):
+    room = findChatRoom(chatroomID)
+    if (room == None):
+        return "Cant find the room"
+
+    # Read which user id that should be added from request-body
+    content = request.json
+    userID = content['userId']
+    user = getUser(userID)
+    if (user == None):
+        return "Cant find user"
+
+    room.users.append(user) # ADding the user to teh room list
+    return "The user was added"
+
+
+
 def findChatRoom(chatroomID):
     for i in range(len(chatrooms)):
         if chatrooms[i].id == chatroomID:
