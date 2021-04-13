@@ -97,6 +97,58 @@ def addUserChatroom(chatroomID):
     return "The user was added"
 
 
+# Get the messages from a chatroom
+@app.route('/api/chat-rooms/<chatroomID>/messages', methods=['GET'])
+def getChatroomMessages(chatroomID):
+    room = findChatRoom(chatroomID)
+    if (room == None):
+        return "Cant find the room"
+
+    content = request.json
+    if content == None:
+        return "UserID must be provided"
+    userID = content['userId']
+    user = getUser(userID)
+    if (user == None):
+        return "cant find user"
+
+    # Return all the users in the room
+    return jsonify([message.toJSON() for message in room.messages])
+
+
+
+
+
+
+# post messages in one chatroom
+@app.route('api/chat-rooms/<chatroomID>/<userId>/messages', methods=['POST'])
+def addChatroomMessagesForUser(chatroomID, userId):
+    room = findChatRoom(chatroomID)
+    if (room == None):
+        return " cant find the room"
+
+    # Check if the user is in the room
+    user = findUserInChatroom(room, userId)
+    if (user == None):
+        return "The user is not in this room"
+
+    # Read the message from request
+    content = request.json
+    if content == None:
+        return "Need to provide a message"
+    text = content['text']
+    message = Message(text, user)
+
+    room.messages.append(message) # Addomg message in list of messages
+    return "Messages added"
+
+
+def findUserInChatroom(room, userId):
+    for i in range(len(room.users)):
+        if room.users[i].id == userId:
+            return room.users[i]
+    return None # Didnt find any user
+
 
 def findChatRoom(chatroomID):
     for i in range(len(chatrooms)):
@@ -138,6 +190,7 @@ def addUsers():
     username = content['username']
     # Random ID to users
     id = uuid.uuid1()
+
     # id = choice(idUser)
     # Prøver å lage en id som er litt mindre kompleks
     user = User(id, username)
@@ -188,8 +241,6 @@ def getAllMessagesForUSer():
 def server_start():
     return 'You need to specify path'
 
-
-# class Messages:
 
 if __name__ == "__main__":
     app.run(debug=True)
