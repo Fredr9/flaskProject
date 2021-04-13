@@ -14,6 +14,9 @@ chooser = input().lower()
 
 #showUser = requests.get('http://127.0.0.1:5000/api/chat-rooms')
 #print(showUser)
+
+# Choose what you want to do with the server:
+# It depends on which key word you use:
 if chooser == "adduser":
     username = {'username': input()}
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
@@ -23,15 +26,32 @@ if chooser == "getusers":
     getUser = requests.get('http://127.0.0.1:5000/api/users')
     print(getUser.json())
 
-if chooser == "getchatrooms":
-    getChatroom = requests.get('http://127.0.0.1:5000/api/chat-rooms')
-    print(getChatroom.json())
-
 if chooser == "addchatrooms":
     chatroom = {'chat-room': input()}
     newChatroom = requests.post('http://127.0.0.1:5000/api/chat-rooms', json=chatroom)
     print(newChatroom.json())
 
+if chooser == "getchatrooms":
+    getChatrooms = requests.get('http://127.0.0.1:5000/api/chat-rooms')
+    print(getChatrooms.json())
+
+    # Get users from a specific room:
+if chooser == "GetSpesificRoom":
+    getSpecificChatRoom = requests.get('http://127.0.0.1:5000/api/chat-rooms')
+
+'''
+Starting to implement som bot like features;:
+if chooser == "Alice":
+    print("hello I am Alice")
+
+if chooser == "Bob":
+    print("Hello I am Bob")
+if chooser == "Ray":
+    print(" EEEYo THis is ray")
+if chooser == "Batman":
+    print("Batman is here to save the day!")
+
+'''
 
 if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms"):
     print("You need to specify what you want to do!")
