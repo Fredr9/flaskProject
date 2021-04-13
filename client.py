@@ -1,4 +1,5 @@
 import json
+import sys
 
 import flask
 from flask import Flask, request, jsonify
@@ -7,11 +8,19 @@ from flask_restful import Api, Resource, reqparse, abort
 
 
 url = "http://localhost:5000/api"
+hello = input()
+Hello =sys.argv[0]
+
 
 #showUser = requests.get('http://127.0.0.1:5000/api/chat-rooms')
 #print(showUser)
-username = {'username': input()}
-newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
+if hello == "adduser":
+    username = {'username': input()}
+    newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
+    print(newUser.json())
+
+
+
 #getChatroom = requests.get('http://127.0.0.1:5000/api/chat-rooms')
 #print(getChatroom.json())
 #r = requests.get('http://127.0.0.1:5000/api/users')
