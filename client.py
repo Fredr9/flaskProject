@@ -1,4 +1,24 @@
+import json
+
+import flask
+from flask import Flask, request, jsonify
+import requests
+from flask_restful import Api, Resource, reqparse, abort
+
+
+url = "http://localhost:5000/api"
+
+#showUser = requests.get('http://127.0.0.1:5000/api/chat-rooms')
+#print(showUser)
+username = {'username': input()}
+newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
+#getChatroom = requests.get('http://127.0.0.1:5000/api/chat-rooms')
+#print(getChatroom.json())
+#r = requests.get('http://127.0.0.1:5000/api/users')
+#print(newUser.json())
+
 '''
+
 En slags skallkode, må utbroderes kraftig
 Legge til botter og eventuelle svar
 while (true)

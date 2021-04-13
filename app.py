@@ -69,7 +69,7 @@ def addChatrooms():
     content = request.json
     chatroomname = content['chat-room']
     # Random ID to chatrooms
-    idchatroom = 101  # uuid.uuid1()
+    idchatroom = uuid.uuid1()
     chatroom = Chatroom(idchatroom, chatroomname)
     chatrooms.append(chatroom)
     return jsonify(chatroom.id)
@@ -211,7 +211,7 @@ def addUsers():
     content = request.json
     username = content['username']
     # Random ID to users
-    id = idCounter  # uuid.uuid1()
+    id = uuid.uuid1()
 
     # id = choice(idUser)
     # Prøver å lage en id som er litt mindre kompleks
