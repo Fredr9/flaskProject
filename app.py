@@ -96,6 +96,15 @@ def getChatroom(chatroomID):
 
 
 # Abort functions
+def abort_if_exists(username):
+    if username in users:
+        abort(409, message="User aleady exits")
+
+def abort_if_not_reg(username):
+    if username not in users:
+        abort(5, message="User not registered")
+
+
 
 # reqparser() use
 
@@ -123,6 +132,7 @@ def addUsers():
     # Prøver å lage en id som er litt mindre kompleks
     user = User(id, username)
     users.append(user)
+    #abort_if_exists(username)
     return jsonify(user.id)
 
 
