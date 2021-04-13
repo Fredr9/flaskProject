@@ -100,8 +100,8 @@ def addUsers():
     content = request.json
     username = content['username']
     # Random ID to users
-    id = uuid.uuid1()
-    #id = choice(idUser)
+    #id = uuid.uuid1()
+    id = choice(idUser)
     # Prøver å lage en id som er litt mindre kompleks
     user = User(id, username)
     users.append(user)
