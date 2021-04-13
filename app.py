@@ -1,5 +1,4 @@
 import uuid
-from random import random, choice
 
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse, abort
@@ -13,6 +12,7 @@ api = Api(app)
 users = []
 chatrooms = []
 idUser = [1, 2, 3, 4, 5, 6]
+idCounter = 0
 
 
 class Chatroom:
@@ -23,7 +23,8 @@ class Chatroom:
         self.messages = []
 
     def toJSONChatroom(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
 
 
 class User:
@@ -32,7 +33,8 @@ class User:
         self.username = username
 
     def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
 
 
 class Message:
@@ -42,7 +44,8 @@ class Message:
         self.user = user
 
     def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
 
 
 # Define chatRooms
@@ -66,7 +69,7 @@ def addChatrooms():
     content = request.json
     chatroomname = content['chat-room']
     # Random ID to chatrooms
-    idchatroom = uuid.uuid1()
+    idchatroom = 101  # uuid.uuid1()
     chatroom = Chatroom(idchatroom, chatroomname)
     chatrooms.append(chatroom)
     return jsonify(chatroom.id)
@@ -91,8 +94,8 @@ def addUserChatroom(chatroomID):
 
     # Read which user id that should be added from request-body
     content = request.json
-    userID = content['userId']
-    user = getUser(userID)
+    userId = content['userId']
+    user = getUser(userId)
     if (user == None):
         return "Cant find user"
 
@@ -109,9 +112,9 @@ def getChatroomMessages(chatroomID):
 
     content = request.json
     if content == None:
-        return "UserID must be provided"
-    userID = content['userId']
-    user = getUser(userID)
+        return "UserId must be provided"
+    userId = content['userId']
+    user = getUser(userId)
     if (user == None):
         return "cant find user"
 
@@ -132,7 +135,7 @@ def getChatroomMessagesFromUser(chatroomID, userId):
 
     userMessages = []
     for message in room.messages:
-        if message.userID == user.id:  # Only add the messages you want
+        if message.userId == user.id:  # Only add the messages you want
             userMessages.append(message)
 
     # Return all the messages to user in this room
@@ -158,7 +161,7 @@ def addChatroomMessagesForUser(chatroomID, userId):
     text = content['text']
     message = Message(text, user)
 
-    room.messages.append(message)  # Addomg message in list of messages
+    room.messages.append(message)  # Adding message in list of messages
     return "Messages added"
 
 
@@ -208,13 +211,13 @@ def addUsers():
     content = request.json
     username = content['username']
     # Random ID to users
-    id = uuid.uuid1()
+    id = idCounter  # uuid.uuid1()
 
     # id = choice(idUser)
     # Prøver å lage en id som er litt mindre kompleks
     user = User(id, username)
     users.append(user)
-    return jsonify(user.id)
+    return jsonify(user.id, username)
 
 
 # Find one specific user
@@ -222,7 +225,7 @@ def addUsers():
 def getUser(userId):
     for i in range(len(users)):
         if users[i].id == userId:
-            return users[i].toJSON()
+            return users[i]
 
     return "No such user"
 
