@@ -13,6 +13,7 @@ api = Api(app)
 users = []
 chatrooms = []
 idUser = [1, 2, 3, 4, 5, 6]
+idCounter = 0
 
 
 class Chatroom:
@@ -23,7 +24,8 @@ class Chatroom:
         self.messages = []
 
     def toJSONChatroom(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
 
 
 class User:
@@ -32,7 +34,8 @@ class User:
         self.username = username
 
     def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
 
 
 class Message:
@@ -42,7 +45,8 @@ class Message:
         self.user = user
 
     def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
 
 
 # Define chatRooms
@@ -78,6 +82,94 @@ def getUsersInChatroom(chatroomID):
         return "Cant find room"
 
     return jsonify([user.toJSON() for user in room.users])
+
+
+# Add users to a room
+@app.route('/api/chat-rooms/<chatroomID>/users', methods=['POST'])
+def addUserChatroom(chatroomID):
+    room = findChatRoom(chatroomID)
+    if (room == None):
+        return "Cant find the room"
+
+    # Read which user id that should be added from request-body
+    content = request.json
+    userId = content['userId']
+    user = getUser(userId)
+    if (user == None):
+        return "Cant find user"
+
+    room.users.append(user)  # ADding the user to teh room list
+    return "The user was added"
+
+
+# Get the messages from a chatroom
+@app.route('/api/chat-rooms/<chatroomID>/messages', methods=['GET'])
+def getChatroomMessages(chatroomID):
+    room = findChatRoom(chatroomID)
+    if (room == None):
+        return "Cant find the room"
+
+    content = request.json
+    if content == None:
+        return "UserId must be provided"
+    userId = content['userId']
+    user = getUser(userId)
+    if (user == None):
+        return "cant find user"
+
+    # Return all the users in the room
+    return jsonify([message.toJSON() for message in room.messages])
+
+
+# Get messages from a users in a chatroom
+@app.route('/api/<chatroomID>/<userId>/messages', methods=['GET'])
+def getChatroomMessagesFromUser(chatroomID, userId):
+    room = findChatRoom(chatroomID)
+    if (room == None):
+        return "Cant find the room"
+
+    user = findUserInChatroom(room, userId)
+    if (user == None):
+        return " Cant find the user in this room"
+
+    userMessages = []
+    for message in room.messages:
+        if message.userId == user.id:  # Only add the messages you want
+            userMessages.append(message)
+
+    # Return all the messages to user in this room
+    return jsonify([message.toJSON() for message in userMessages])
+
+
+# post messages in one chatroom
+@app.route('/api/chat-rooms/<chatroomID>/<userId>/messages', methods=['POST'])
+def addChatroomMessagesForUser(chatroomID, userId):
+    room = findChatRoom(chatroomID)
+    if (room == None):
+        return " cant find the room"
+
+    # Check if the user is in the room
+    user = findUserInChatroom(room, userId)
+    if (user == None):
+        return "The user is not in this room"
+
+    # Read the message from request
+    content = request.json
+    if content == None:
+        return "Need to provide a message"
+    text = content['text']
+    message = Message(text, user)
+
+    room.messages.append(message)  # Adding message in list of messages
+    return "Messages added"
+
+
+def findUserInChatroom(room, userId):
+    for i in range(len(room.users)):
+        if room.users[i].id == userId:
+            return room.users[i]
+    return None  # Didnt find any user
+
 
 def findChatRoom(chatroomID):
     for i in range(len(chatrooms)):
@@ -134,6 +226,7 @@ def addUsers():
     users.append(user)
     #abort_if_exists(username)
     return jsonify(user.id)
+    return jsonify(user.id, username)
 
 
 # Find one specific user
@@ -141,7 +234,7 @@ def addUsers():
 def getUser(userId):
     for i in range(len(users)):
         if users[i].id == userId:
-            return users[i].toJSON()
+            return users[i]
 
     return "No such user"
 
