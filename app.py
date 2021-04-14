@@ -261,7 +261,7 @@ def getAllMessagesForUSer():
 
 @app.route('/')
 def server_start():
-    return 'You need to specify path'
+    return 'You need to specify path!'
 
 
 if __name__ == "__main__":
