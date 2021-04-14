@@ -49,6 +49,8 @@ class Message:
                           sort_keys=True, indent=4)
 
 
+
+
 # Define chatRooms
 #
 # If you forget to type the s at the end
@@ -237,6 +239,7 @@ def getUser(userId):
             return users[i]
 
     return "No such user"
+
 
 
 # Delete one specific user
