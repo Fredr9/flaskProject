@@ -30,7 +30,7 @@ if chooser == "getusers":
     getUser = requests.get('http://127.0.0.1:5000/api/users')
     print(getUser.json())
 
-if chooser == "addchatrooms":
+if chooser == "addchatrooms" or "addchatroom":
     chatroom = {'chat-room': input()}
     newChatroom = requests.post('http://127.0.0.1:5000/api/chat-rooms', json=chatroom)
     print(newChatroom.json())
@@ -57,7 +57,7 @@ if chooser == "Batman":
 
 '''
 
-if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms"):
+if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom"):
     print("You need to specify what you want to do!")
 
 #r = requests.get('http://127.0.0.1:5000/api/users')
