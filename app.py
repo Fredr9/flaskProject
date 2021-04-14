@@ -1,8 +1,17 @@
 import uuid
 
+import nltk as nltk
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse, abort
 import json
+import random
+import numpy
+import tflearn
+import tensorflow
+
+
+
+
 
 url = "http://127.0.0.1:5000/"
 app = Flask(__name__)
@@ -13,6 +22,25 @@ users = []
 chatrooms = []
 idUser = [1, 2, 3, 4, 5, 6]
 idCounter = 0
+
+with open("bots.json", encoding="utf8") as file:
+    bots = json.load(file)
+
+words = []
+labels = []
+docs = []
+
+for intent in bots ["BotA", "BotB", "BotC", "BotD"]:
+    for pattern in intent["patterns"]:
+        wrds = nltk.word_tokenize(pattern)
+        words.extend(wrds)
+        docs.append(pattern)
+
+        if intent ["tag"] not in labels:
+            labels.append(intent["tag"])
+
+
+
 
 
 class Chatroom:
