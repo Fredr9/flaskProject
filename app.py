@@ -1,9 +1,17 @@
 import uuid
-from random import random, choice
 
+#import nltk as nltk
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse, abort
 import json
+import random
+#import numpy
+#import tflearn
+#import tensorflow
+
+
+
+
 
 url = "http://127.0.0.1:5000/"
 app = Flask(__name__)
@@ -15,6 +23,26 @@ chatrooms = []
 idUser = [1, 2, 3, 4, 5, 6]
 idCounter = 0
 
+'''
+with open("bots.json", encoding="utf8") as file:
+    bots = json.load(file)
+
+words = []
+labels = []
+docs = []
+
+
+for intent in bots ["BotA", "BotB", "BotC", "BotD"]:
+    for pattern in intent["patterns"]:
+        wrds = nltk.word_tokenize(pattern)
+        words.extend(wrds)
+        docs.append(pattern)
+
+        if intent ["tag"] not in labels:
+            labels.append(intent["tag"])
+
+
+'''
 
 class Chatroom:
     def __init__(self, id, roomname):
@@ -49,8 +77,6 @@ class Message:
                           sort_keys=True, indent=4)
 
 
-
-
 # Define chatRooms
 #
 # If you forget to type the s at the end
@@ -58,6 +84,7 @@ class Message:
 def chatRooms():
     return '<h1>Wrong path </h1>' \
            '<p1>If you want to go too the chat-rooms go to 127.0.0.1:5000/chat-rooms</p1>'
+
 
 # Show all the chatrooms:
 @app.route('/api/chat-rooms', methods=['GET'])
@@ -75,6 +102,7 @@ def addChatrooms():
     chatroom = Chatroom(idchatroom, chatroomname)
     chatrooms.append(chatroom)
     return jsonify(chatroom.id)
+
 
 # Get users from a specific room:
 @app.route('/api/chat-rooms/<chatroomID>/users', methods=['GET'])
@@ -221,14 +249,16 @@ def addUsers():
     content = request.json
     username = content['username']
     # Random ID to users
+    #id = users
     id = uuid.uuid1()
+    #print(str(users))
     # id = choice(idUser)
     # Prøver å lage en id som er litt mindre kompleks
     user = User(id, username)
     users.append(user)
-    #abort_if_exists(username)
-    return jsonify(user.id)
     return jsonify(user.id, username)
+    #abort_if_exists(username)
+
 
 
 # Find one specific user
@@ -239,7 +269,6 @@ def getUser(userId):
             return users[i]
 
     return "No such user"
-
 
 
 # Delete one specific user
@@ -273,10 +302,8 @@ def getAllMessagesForUSer():
 
 @app.route('/')
 def server_start():
-    return 'You need to specify path'
+    return 'You need to specify path!'
 
-
-# class Messages:
 
 if __name__ == "__main__":
     app.run(debug=True)
