@@ -1,13 +1,13 @@
 import uuid
 
-import nltk as nltk
+#import nltk as nltk
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse, abort
 import json
 import random
-import numpy
-import tflearn
-import tensorflow
+#import numpy
+#import tflearn
+#import tensorflow
 
 
 
@@ -249,8 +249,9 @@ def addUsers():
     content = request.json
     username = content['username']
     # Random ID to users
+    #id = users
     id = uuid.uuid1()
-
+    #print(str(users))
     # id = choice(idUser)
     # Prøver å lage en id som er litt mindre kompleks
     user = User(id, username)
