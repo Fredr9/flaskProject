@@ -23,12 +23,14 @@ chatrooms = []
 idUser = [1, 2, 3, 4, 5, 6]
 idCounter = 0
 
+'''
 with open("bots.json", encoding="utf8") as file:
     bots = json.load(file)
 
 words = []
 labels = []
 docs = []
+
 
 for intent in bots ["BotA", "BotB", "BotC", "BotD"]:
     for pattern in intent["patterns"]:
@@ -40,8 +42,7 @@ for intent in bots ["BotA", "BotB", "BotC", "BotD"]:
             labels.append(intent["tag"])
 
 
-
-
+'''
 
 class Chatroom:
     def __init__(self, id, roomname):
