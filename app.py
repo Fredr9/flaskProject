@@ -5,9 +5,7 @@ from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse, abort
 import json
 import random
-import numpy
-import tflearn
-import tensorflow
+
 
 
 
@@ -23,7 +21,6 @@ chatrooms = []
 idUser = [1, 2, 3, 4, 5, 6]
 idCounter = 0
 
-'''
 with open("bots.json", encoding="utf8") as file:
     bots = json.load(file)
 
@@ -32,17 +29,9 @@ labels = []
 docs = []
 
 
-for intent in bots ["BotA", "BotB", "BotC", "BotD"]:
-    for pattern in intent["patterns"]:
-        wrds = nltk.word_tokenize(pattern)
-        words.extend(wrds)
-        docs.append(pattern)
-
-        if intent ["tag"] not in labels:
-            labels.append(intent["tag"])
 
 
-'''
+
 
 class Chatroom:
     def __init__(self, id, roomname):
