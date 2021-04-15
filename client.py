@@ -10,6 +10,7 @@ url = "http://localhost:5000/api"
 chooser = input().lower()
 # Hello = sys.argv[0]
 
+#
 
 # showUser = requests.get('http://127.0.0.1:5000/api/chat-rooms')
 # print(showUser)
