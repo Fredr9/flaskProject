@@ -31,6 +31,8 @@ if chooser == "getusers":
 
 
 if chooser == "deleteuser":
+    useriD = requests.get('http://127.0.0.1:5000/api/users')
+  #  if useriD == sys.argv[0]:
     deleteuser = requests.delete('http://127.0.0.1:5000/api/users/<userId>')
     print(deleteuser.json())
 
