@@ -122,10 +122,15 @@ def addUserChatroom(chatroomID):
         return "Cant find the room"
 
     # Read which user id that should be added from request-body
+    print("agaskk og hopp")
+    print(request)
     content = request.json
+    print(content)
     userId = content['userId']
+    print("Finne bruker?")
     user = getUser(userId)
-    if (user == None):
+    print(user)
+    if (user == "No such user"):
         return "Cant find user"
 
     room.users.append(user)  # ADding the user to teh room list

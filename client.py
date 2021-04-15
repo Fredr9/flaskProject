@@ -50,6 +50,9 @@ if chooser == "getchatrooms":
 if chooser == "GetSpesificRoom":
     getSpecificChatRoom = requests.get('http://127.0.0.1:5000/api/chat-rooms')
 
+
+
+
 '''
 Starting to implement som bot like features;:
 if chooser == "Alice":
