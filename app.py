@@ -1,16 +1,14 @@
 import uuid
 
-#import nltk as nltk
+# import nltk as nltk
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse, abort
 import json
 import random
-#import numpy
-#import tflearn
-#import tensorflow
 
-
-
+# import numpy
+# import tflearn
+# import tensorflow
 
 
 url = "http://127.0.0.1:5000/"
@@ -43,6 +41,7 @@ for intent in bots ["BotA", "BotB", "BotC", "BotD"]:
 
 
 '''
+
 
 class Chatroom:
     def __init__(self, id, roomname):
@@ -218,7 +217,6 @@ def getChatroom(chatroomID):
     for i in range(len(chatrooms)):
         if chatrooms[i].chatroomID == chatroomID:
             return chatrooms[i].toJSON()
-
     return "No such chatroom"
 
 
@@ -227,10 +225,10 @@ def abort_if_exists(username):
     if username in users:
         abort(409, message="User aleady exits")
 
+
 def abort_if_not_reg(username):
     if username not in users:
         abort(5, message="User not registered")
-
 
 
 # reqparser() use
@@ -254,16 +252,15 @@ def addUsers():
     content = request.json
     username = content['username']
     # Random ID to users
-    #id = users
+    # id = users
     id = uuid.uuid1()
-    #print(str(users))
+    # print(str(users))
     # id = choice(idUser)
     # Prøver å lage en id som er litt mindre kompleks
     user = User(id, username)
     users.append(user)
     return jsonify(user.id, username)
-    #abort_if_exists(username)
-
+    # abort_if_exists(username)
 
 
 # Find one specific user
@@ -271,7 +268,7 @@ def addUsers():
 def getUser(userId):
     for i in range(len(users)):
         if users[i].id == userId:
-            return users[i]
+            return users[i].toJSON
 
     return "No such user"
 
