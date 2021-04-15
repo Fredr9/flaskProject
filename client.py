@@ -6,21 +6,21 @@ from flask import Flask, request, jsonify
 import requests
 from flask_restful import Api, Resource, reqparse, abort
 
-
 url = "http://localhost:5000/api"
 chooser = input().lower()
-#Hello = sys.argv[0]
+# Hello = sys.argv[0]
 
+#
 
-#showUser = requests.get('http://127.0.0.1:5000/api/chat-rooms')
-#print(showUser)
+# showUser = requests.get('http://127.0.0.1:5000/api/chat-rooms')
+# print(showUser)
 
 # Choose what you want to do with the server:
 # It depends on which key word you use:
 if chooser == "adduser":
-    #user = []
-    #user.append(chooser)
-    #if user[0] == user[1]:
+    # user = []
+    # user.append(chooser)
+    # if user[0] == user[1]:
     #    print(" the user already exist")
     username = {'username': input()}
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
@@ -30,7 +30,14 @@ if chooser == "getusers":
     getUser = requests.get('http://127.0.0.1:5000/api/users')
     print(getUser.json())
 
-if chooser == "addchatrooms" or "addchatroom":
+
+if chooser == "deleteuser":
+    useriD = requests.get('http://127.0.0.1:5000/api/users')
+  #  if useriD == sys.argv[0]:
+    deleteuser = requests.delete('http://127.0.0.1:5000/api/users/<userId>')
+    print(deleteuser.json())
+
+if chooser in ("addchatrooms", "addchatroom"):
     chatroom = {'chat-room': input()}
     newChatroom = requests.post('http://127.0.0.1:5000/api/chat-rooms', json=chatroom)
     print(newChatroom.json())
@@ -42,6 +49,9 @@ if chooser == "getchatrooms":
     # Get users from a specific room:
 if chooser == "GetSpesificRoom":
     getSpecificChatRoom = requests.get('http://127.0.0.1:5000/api/chat-rooms')
+
+
+
 
 '''
 Starting to implement som bot like features;:
@@ -60,8 +70,8 @@ if chooser == "Batman":
 if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom"):
     print("You need to specify what you want to do!")
 
-#r = requests.get('http://127.0.0.1:5000/api/users')
-#print(newUser.json())
+# r = requests.get('http://127.0.0.1:5000/api/users')
+# print(newUser.json())
 
 '''
 
@@ -78,4 +88,3 @@ if (input = "1")
   response = request("localhost:5000/rooms")
   print(response)
 '''
-

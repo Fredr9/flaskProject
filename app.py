@@ -1,14 +1,14 @@
 import uuid
 
-import nltk as nltk
+# import nltk as nltk
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse, abort
 import json
 import random
 
-
-
-
+# import numpy
+# import tflearn
+# import tensorflow
 
 
 url = "http://127.0.0.1:5000/"
@@ -21,6 +21,7 @@ chatrooms = []
 idUser = [1, 2, 3, 4, 5, 6]
 idCounter = 0
 
+'''
 with open("bots.json", encoding="utf8") as file:
     bots = json.load(file)
 
@@ -29,8 +30,17 @@ labels = []
 docs = []
 
 
+for intent in bots ["BotA", "BotB", "BotC", "BotD"]:
+    for pattern in intent["patterns"]:
+        wrds = nltk.word_tokenize(pattern)
+        words.extend(wrds)
+        docs.append(pattern)
+
+        if intent ["tag"] not in labels:
+            labels.append(intent["tag"])
 
 
+'''
 
 
 class Chatroom:
@@ -111,10 +121,15 @@ def addUserChatroom(chatroomID):
         return "Cant find the room"
 
     # Read which user id that should be added from request-body
+    print("agaskk og hopp")
+    print(request)
     content = request.json
+    print(content)
     userId = content['userId']
+    print("Finne bruker?")
     user = getUser(userId)
-    if (user == None):
+    print(user)
+    if (user == "No such user"):
         return "Cant find user"
 
     room.users.append(user)  # ADding the user to teh room list
@@ -202,7 +217,6 @@ def getChatroom(chatroomID):
     for i in range(len(chatrooms)):
         if chatrooms[i].chatroomID == chatroomID:
             return chatrooms[i].toJSON()
-
     return "No such chatroom"
 
 
@@ -211,10 +225,10 @@ def abort_if_exists(username):
     if username in users:
         abort(409, message="User aleady exits")
 
+
 def abort_if_not_reg(username):
     if username not in users:
         abort(5, message="User not registered")
-
 
 
 # reqparser() use
@@ -238,15 +252,15 @@ def addUsers():
     content = request.json
     username = content['username']
     # Random ID to users
+    # id = users
     id = uuid.uuid1()
-
+    # print(str(users))
     # id = choice(idUser)
     # Prøver å lage en id som er litt mindre kompleks
     user = User(id, username)
     users.append(user)
     return jsonify(user.id, username)
-    #abort_if_exists(username)
-
+    # abort_if_exists(username)
 
 
 # Find one specific user
@@ -254,7 +268,7 @@ def addUsers():
 def getUser(userId):
     for i in range(len(users)):
         if users[i].id == userId:
-            return users[i]
+            return users[i].toJSON
 
     return "No such user"
 
