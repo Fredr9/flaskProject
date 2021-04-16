@@ -25,17 +25,16 @@ if botname == "Joakim":
         # Make a variable with room id extracted
         roomId = room['id']
         # Bot joining the first room:
-        requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
+        f =requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                       headers={"Content-Type": "application/json"})
+        print(f)
         # Bot sends message:
-        text = "testing"
-        '''
-        requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid),
-                      data=text.format(text),
-                      json={"userId": userid},
+        texst = "testing"
+
+        q = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid), json={"text": texst},
                       headers={"Content-Type": "application/json"})
-                      '''
-        print(f'A bot has joined, {roomId}'.format(roomId))
+        print(q)
+        #print(f'A bot has joined, {roomId}'.format(roomId))
 
     else:
         print("No room exists")
