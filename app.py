@@ -4,7 +4,6 @@ import uuid
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse, abort
 import json
-import random
 
 # import numpy
 # import tflearn
@@ -110,7 +109,7 @@ def getUsersInChatroom(chatroomID):
     if (room == None):
         return "Cant find room"
 
-    return jsonify([user.toJSON() for user in room.users])
+    return jsonify([user() for user in room.users])
 
 
 # Add users to a room
@@ -128,11 +127,14 @@ def addUserChatroom(chatroomID):
     userId = content['userId']
     print("Finne bruker?")
     user = getUser(userId)
-    print(user)
+    print("Hvor er feileN?")
+    #print(user)
     if (user == "No such user"):
         return "Cant find user"
-
+    print("er den her? ")
     room.users.append(user)  # ADding the user to teh room list
+    print(" YSER WAS ADDED")
+    print(str(room))
     return "The user was added"
 
 
@@ -212,7 +214,7 @@ def findChatRoom(chatroomID):
     return None
 
 
-@app.route('/api/chat-rooms/<chatroomID>', methods=['GET'])
+@app.route('/api/chat-rooms/<chatroomID>/messages', methods=['GET'])
 def getChatroom(chatroomID):
     for i in range(len(chatrooms)):
         if chatrooms[i].chatroomID == chatroomID:
@@ -290,16 +292,6 @@ def findSpecificIndex(userId):
         if users[i].id == userId:
             return i
     return -1  # Did not find user
-
-
-@app.route('/api/room/room-id/messages')
-def getMessages():
-    return 'Hello, this is a message'
-
-
-@app.route('/api/room/room-id/user-id/messages')
-def getAllMessagesForUSer():
-    return 'Hello, this is a message'
 
 
 @app.route('/')

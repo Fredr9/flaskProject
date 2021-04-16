@@ -1,13 +1,9 @@
 import json
 import sys
-
-import flask
-from flask import Flask, request, jsonify
 import requests
-from flask_restful import Api, Resource, reqparse, abort
 
 url = "http://localhost:5000/api"
-#chooser = input().lower()
+# chooser = input().lower()
 botname = sys.argv[1]
 
 if botname == "Joakim":
@@ -33,16 +29,17 @@ if botname == "Joakim":
                       headers={"Content-Type": "application/json"})
         # Bot sends message:
         text = "testing"
-        requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid), data=text.format(text), json={"userId": userid},
+        '''
+        requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid),
+                      data=text.format(text),
+                      json={"userId": userid},
                       headers={"Content-Type": "application/json"})
-
+                      '''
     else:
-        print("Det finnes ingen rom")
-    print(data)
-    print("Dette er en bot")
+        print("No room exists")
+        print(data)
 else:
     print("ukjent bot")
-
 
 # Just a duplicate for now
 if botname == "Fredrik":
@@ -59,7 +56,7 @@ if botname == "Fredrik":
     if len(data) > 0:
         room = json.loads(data[0])
         print(room)
-        print(" Fant et cahtroom")
+        print(" Fant et chatroom")
         print(room['id'])
         # Make a variable with room id extracted
         roomId = room['id']
@@ -71,7 +68,7 @@ if botname == "Fredrik":
                       headers={"Content-Type": "application/json"})
 
     else:
-        print("Det finnes ingen rom")
+        print("There isnt a room to join")
     print(data)
     print("Dette er en bot")
 else:
