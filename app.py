@@ -1,16 +1,13 @@
 import uuid
 
-#import nltk as nltk
+# import nltk as nltk
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse, abort
 import json
-import random
-#import numpy
-#import tflearn
-#import tensorflow
 
-
-
+# import numpy
+# import tflearn
+# import tensorflow
 
 
 url = "http://127.0.0.1:5000/"
@@ -43,6 +40,7 @@ for intent in bots ["BotA", "BotB", "BotC", "BotD"]:
 
 
 '''
+
 
 class Chatroom:
     def __init__(self, id, roomname):
@@ -111,7 +109,7 @@ def getUsersInChatroom(chatroomID):
     if (room == None):
         return "Cant find room"
 
-    return jsonify([user.toJSON() for user in room.users])
+    return jsonify([user() for user in room.users])
 
 
 # Add users to a room
@@ -122,13 +120,21 @@ def addUserChatroom(chatroomID):
         return "Cant find the room"
 
     # Read which user id that should be added from request-body
+    print("agaskk og hopp")
+    print(request)
     content = request.json
+    print(content)
     userId = content['userId']
+    print("Finne bruker?")
     user = getUser(userId)
-    if (user == None):
+    print("Hvor er feileN?")
+    #print(user)
+    if (user == "No such user"):
         return "Cant find user"
-
+    print("er den her? ")
     room.users.append(user)  # ADding the user to teh room list
+    print(" YSER WAS ADDED")
+    #print(room.toJSONChatroom)
     return "The user was added"
 
 
@@ -208,12 +214,11 @@ def findChatRoom(chatroomID):
     return None
 
 
-@app.route('/api/chat-rooms/<chatroomID>', methods=['GET'])
+@app.route('/api/chat-rooms/<chatroomID>/messages', methods=['GET'])
 def getChatroom(chatroomID):
     for i in range(len(chatrooms)):
         if chatrooms[i].chatroomID == chatroomID:
             return chatrooms[i].toJSON()
-
     return "No such chatroom"
 
 
@@ -222,10 +227,10 @@ def abort_if_exists(username):
     if username in users:
         abort(409, message="User aleady exits")
 
+
 def abort_if_not_reg(username):
     if username not in users:
         abort(5, message="User not registered")
-
 
 
 # reqparser() use
@@ -249,16 +254,15 @@ def addUsers():
     content = request.json
     username = content['username']
     # Random ID to users
-    #id = users
+    # id = users
     id = uuid.uuid1()
-    #print(str(users))
+    # print(str(users))
     # id = choice(idUser)
     # Prøver å lage en id som er litt mindre kompleks
     user = User(id, username)
     users.append(user)
     return jsonify(user.id, username)
-    #abort_if_exists(username)
-
+    # abort_if_exists(username)
 
 
 # Find one specific user
@@ -266,7 +270,7 @@ def addUsers():
 def getUser(userId):
     for i in range(len(users)):
         if users[i].id == userId:
-            return users[i]
+            return users[i].toJSON
 
     return "No such user"
 
@@ -288,16 +292,6 @@ def findSpecificIndex(userId):
         if users[i].id == userId:
             return i
     return -1  # Did not find user
-
-
-@app.route('/api/room/room-id/messages')
-def getMessages():
-    return 'Hello, this is a message'
-
-
-@app.route('/api/room/room-id/user-id/messages')
-def getAllMessagesForUSer():
-    return 'Hello, this is a message'
 
 
 @app.route('/')
