@@ -134,7 +134,7 @@ def addUserChatroom(chatroomID):
     print("er den her? ")
     room.users.append(user)  # ADding the user to teh room list
     print(" YSER WAS ADDED")
-    print(str(room))
+    #print(room.toJSONChatroom)
     return "The user was added"
 
 
