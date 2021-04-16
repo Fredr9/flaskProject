@@ -29,6 +29,9 @@ if chooser == "getusers":
     getUser = requests.get('http://127.0.0.1:5000/api/users')
     print(getUser.json())
 
+if chooser == "getmessages":
+    getmessages = requests.get('http://127.0.0.1:5000/api/chat-rooms/<chatroomID>/messages')
+    print(getmessages.json())
 
 if chooser == "deleteuser":
     deleteuser = requests.delete('http://127.0.0.1:5000/api/users/<userId>')
@@ -47,6 +50,9 @@ if chooser == "getchatrooms":
 if chooser == "GetSpesificRoom":
     getSpecificChatRoom = requests.get('http://127.0.0.1:5000/api/chat-rooms')
 
+if chooser == "SendMessage":
+    SendMessage = requests.get('http://127.0.0.1:5000/api/chat-rooms/<chatroomID>/<userId>/messages')
+    print(SendMessage.json())
 '''
 Starting to implement som bot like features;:
 if chooser == "Alice":
@@ -61,7 +67,7 @@ if chooser == "Batman":
 
 '''
 
-if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom"):
+if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom", "SendMessage"):
     print("You need to specify what you want to do!")
 
 # r = requests.get('http://127.0.0.1:5000/api/users')
