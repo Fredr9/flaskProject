@@ -11,7 +11,6 @@ chooser = input().lower()
 # Hello = sys.argv[0]
 
 #
-
 # showUser = requests.get('http://127.0.0.1:5000/api/chat-rooms')
 # print(showUser)
 
@@ -50,10 +49,24 @@ if chooser == "getchatrooms":
 if chooser == "GetSpesificRoom":
     getSpecificChatRoom = requests.get('http://127.0.0.1:5000/api/chat-rooms')
 
+if chooser == "LegTilMelding":
+    getSpecificChatRoom = requests.get('/api/chat-rooms/<chatroomID>/messages')
+
+if chooser == "LesMelding":
+    print(requests.get('/api/chat-rooms/<chatroomID>/messages'))
+
+
+
 
 
 if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom"):
     print("You need to specify what you want to do!")
+
+
+
+
+if __name__ == "__main__":
+    print('test 123')
 
 # r = requests.get('http://127.0.0.1:5000/api/users')
 # print(newUser.json())
