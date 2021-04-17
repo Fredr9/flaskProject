@@ -1,11 +1,13 @@
 # flaskProject
 Oblig2
 
-To start the program type flask run in the terminal, or python3 app.py
+To start the server type flask run in the terminal, or python3 app.py
 or just start the app.py in your compiler
 
 
 If you run the bot.py program, you have to choose a name for your bot:
+yoy just type the name you want after bot.py e.g bot.py Fredrik
+then Fredrik starts
 from this list: Fredrik, Joakim ....
 
 The bot will enter a room if available
