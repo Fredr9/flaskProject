@@ -7,7 +7,7 @@ import requests
 
 url = "http://localhost:5000/api"
 # chooser = input().lower()
-botname = sys.argv[1]
+botname = "Joakim"
 
 #list of words
 
@@ -50,6 +50,8 @@ if botname == "Joakim":
 else:
     print("ukjent bot")
 
+
+botname = "Fredrik"
 # Just a duplicate for now
 if botname == "Fredrik":
     username = {'username': 'Fredrik'}
@@ -73,8 +75,12 @@ if botname == "Fredrik":
         requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                       headers={"Content-Type": "application/json"})
         # Bot sends message:
-        requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId), json={"userId": userid},
+
+
+        requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId), json={"text": "test 123"},
                       headers={"Content-Type": "application/json"})
+        print(requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId), json={"text": "test 123"},
+                      headers={"Content-Type": "application/json"}))
 
 
     else:
@@ -82,3 +88,7 @@ if botname == "Fredrik":
 
 else:
     print("ukjent bot")
+
+
+if __name__ == "__main__":
+    print('test 123')
