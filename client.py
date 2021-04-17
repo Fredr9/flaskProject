@@ -52,21 +52,6 @@ if chooser == "GetSpesificRoom":
 
 
 
-
-'''
-Starting to implement som bot like features;:
-if chooser == "Alice":
-    print("hello I am Alice")
-
-if chooser == "Bob":
-    print("Hello I am Bob")
-if chooser == "Ray":
-    print(" EEEYo THis is ray")
-if chooser == "Batman":
-    print("Batman is here to save the day!")
-
-'''
-
 if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom"):
     print("You need to specify what you want to do!")
 
