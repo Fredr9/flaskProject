@@ -52,7 +52,14 @@ if chooser == "getchatrooms":
 if chooser == "GetSpesificRoom":
     getSpecificChatRoom = requests.get('http://127.0.0.1:5000/api/chat-rooms')
 
-if chooser == "SendMessage":
+if chooser == "addtochat":
+    room = json.loads(data[0])
+    roomId = room['id']
+    username = {'username: ': input()}
+    joinchat = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json=username)
+    print(joinchat.json())
+
+if chooser == "sendmessage":
     SendMessage = requests.get('http://127.0.0.1:5000/api/chat-rooms/<chatroomID>/<userId>/messages')
     print(SendMessage.json())
 '''
@@ -69,7 +76,7 @@ if chooser == "Batman":
 
 '''
 
-if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom", "SendMessage"):
+if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom", "sendmessage"):
     print("You need to specify what you want to do!")
 
 # r = requests.get('http://127.0.0.1:5000/api/users')
