@@ -96,7 +96,7 @@ def addChatrooms():
     content = request.json
     chatroomname = content['chat-room']
     # Random ID to chatrooms
-    idchatroom = uuid.uuid1()
+    idchatroom = 15#uuid.uuid1()
     chatroom = Chatroom(idchatroom, chatroomname)
     chatrooms.append(chatroom)
     return jsonify(chatroom.id)
@@ -117,7 +117,7 @@ def getUsersInChatroom(chatroomID):
 def addUserChatroom(chatroomID):
     room = findChatRoom(chatroomID)
     if (room == None):
-        return "Cant find the room"
+        return "Cant find the room"  # SER UT TIL Å FEILE HER!==!?
 
     # Read which user id that should be added from request-body
     print("agaskk og hopp")
@@ -134,7 +134,7 @@ def addUserChatroom(chatroomID):
     print("er den her? ")
     room.users.append(user)  # ADding the user to teh room list
     print(" YSER WAS ADDED")
-    print(str(room))
+    #print(room.toJSONChatroom)
     return "The user was added"
 
 
@@ -142,11 +142,11 @@ def addUserChatroom(chatroomID):
 @app.route('/api/chat-rooms/<chatroomID>/messages', methods=['GET'])
 def getChatroomMessages(chatroomID):
     room = findChatRoom(chatroomID)
-    if (room == None):
+    if room is None:
         return "Cant find the room"
 
     content = request.json
-    if content == None:
+    if content is None:
         return "UserId must be provided"
     userId = content['userId']
     user = getUser(userId)
@@ -158,7 +158,7 @@ def getChatroomMessages(chatroomID):
 
 
 # Get messages from a users in a chatroom
-@app.route('/api/<chatroomID>/<userId>/messages', methods=['GET'])
+@app.route('/api/<chatroomID>/<userId>/messages', methods=['POST', 'GET'])
 def getChatroomMessagesFromUser(chatroomID, userId):
     room = findChatRoom(chatroomID)
     if (room == None):
@@ -178,7 +178,7 @@ def getChatroomMessagesFromUser(chatroomID, userId):
 
 
 # post messages in one chatroom
-@app.route('/api/chat-rooms/<chatroomID>/<userId>/messages', methods=['POST'])
+@app.route('/api/chat-rooms/<chatroomID>/<userId>/messages', methods=['POST', 'GET'])
 def addChatroomMessagesForUser(chatroomID, userId):
     room = findChatRoom(chatroomID)
     if (room == None):
@@ -187,22 +187,24 @@ def addChatroomMessagesForUser(chatroomID, userId):
     # Check if the user is in the room
     user = findUserInChatroom(room, userId)
     if (user == None):
+        print("hvoer er brukeren=!=!=")
         return "The user is not in this room"
 
     # Read the message from request
     content = request.json
+    print("FUNBGERERE DETTE?")
+    print(content)
     if content == None:
         return "Need to provide a message"
     text = content['text']
     message = Message(text, user)
-
     room.messages.append(message)  # Adding message in list of messages
     return "Messages added"
 
 
 def findUserInChatroom(room, userId):
     for i in range(len(room.users)):
-        if room.users[i].id == userId:
+        if room.users[i] == userId:
             return room.users[i]
     return None  # Didnt find any user
 
@@ -255,7 +257,7 @@ def addUsers():
     username = content['username']
     # Random ID to users
     # id = users
-    id = uuid.uuid1()
+    id = 50 #uuid.uuid1()
     # print(str(users))
     # id = choice(idUser)
     # Prøver å lage en id som er litt mindre kompleks
