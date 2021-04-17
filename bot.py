@@ -32,7 +32,7 @@ if botname == "Joakim":
         # Make a variable with room id extracted
         roomId = room['id']
         # Bot joining the first room:
-        requests.post('/api/chat-rooms/<chatroomID>/users'.format(roomId), json={"userId": userid},
+        requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                       headers={"Content-Type": "application/json"})
 
         # Bot sends message:
