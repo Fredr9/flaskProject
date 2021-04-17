@@ -142,7 +142,7 @@ def addUserChatroom(chatroomID):
 @app.route('/api/chat-rooms/<chatroomID>/messages', methods=['GET'])
 def getChatroomMessages(chatroomID):
     room = findChatRoom(chatroomID)
-    if room is None:
+    if (room == None):
         return "Cant find the room"
 
     content = request.json
