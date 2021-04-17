@@ -1,14 +1,13 @@
 import uuid
 
-import nltk as nltk
+# import nltk as nltk
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse, abort
 import json
-import random
 
-
-
-
+# import numpy
+# import tflearn
+# import tensorflow
 
 
 url = "http://127.0.0.1:5000/"
@@ -21,6 +20,7 @@ chatrooms = []
 idUser = [1, 2, 3, 4, 5, 6]
 idCounter = 0
 
+'''
 with open("bots.json", encoding="utf8") as file:
     bots = json.load(file)
 
@@ -29,8 +29,17 @@ labels = []
 docs = []
 
 
+for intent in bots ["BotA", "BotB", "BotC", "BotD"]:
+    for pattern in intent["patterns"]:
+        wrds = nltk.word_tokenize(pattern)
+        words.extend(wrds)
+        docs.append(pattern)
+
+        if intent ["tag"] not in labels:
+            labels.append(intent["tag"])
 
 
+'''
 
 
 class Chatroom:
@@ -87,7 +96,7 @@ def addChatrooms():
     content = request.json
     chatroomname = content['chat-room']
     # Random ID to chatrooms
-    idchatroom = uuid.uuid1()
+    idchatroom = 15#uuid.uuid1()
     chatroom = Chatroom(idchatroom, chatroomname)
     chatrooms.append(chatroom)
     return jsonify(chatroom.id)
@@ -100,7 +109,7 @@ def getUsersInChatroom(chatroomID):
     if (room == None):
         return "Cant find room"
 
-    return jsonify([user.toJSON() for user in room.users])
+    return jsonify([user() for user in room.users])
 
 
 # Add users to a room
@@ -108,16 +117,24 @@ def getUsersInChatroom(chatroomID):
 def addUserChatroom(chatroomID):
     room = findChatRoom(chatroomID)
     if (room == None):
-        return "Cant find the room"
+        return "Cant find the room"  # SER UT TIL Å FEILE HER!==!?
 
     # Read which user id that should be added from request-body
+    print("agaskk og hopp")
+    print(request)
     content = request.json
+    print(content)
     userId = content['userId']
+    print("Finne bruker?")
     user = getUser(userId)
-    if (user == None):
+    print("Hvor er feileN?")
+    #print(user)
+    if (user == "No such user"):
         return "Cant find user"
-
+    print("er den her? ")
     room.users.append(user)  # ADding the user to teh room list
+    print(" YSER WAS ADDED")
+    #print(room.toJSONChatroom)
     return "The user was added"
 
 
@@ -125,11 +142,11 @@ def addUserChatroom(chatroomID):
 @app.route('/api/chat-rooms/<chatroomID>/messages', methods=['GET'])
 def getChatroomMessages(chatroomID):
     room = findChatRoom(chatroomID)
-    if (room == None):
+    if room is None:
         return "Cant find the room"
 
     content = request.json
-    if content == None:
+    if content is None:
         return "UserId must be provided"
     userId = content['userId']
     user = getUser(userId)
@@ -141,7 +158,7 @@ def getChatroomMessages(chatroomID):
 
 
 # Get messages from a users in a chatroom
-@app.route('/api/<chatroomID>/<userId>/messages', methods=['GET'])
+@app.route('/api/<chatroomID>/<userId>/messages', methods=['POST', 'GET'])
 def getChatroomMessagesFromUser(chatroomID, userId):
     room = findChatRoom(chatroomID)
     if (room == None):
@@ -161,7 +178,7 @@ def getChatroomMessagesFromUser(chatroomID, userId):
 
 
 # post messages in one chatroom
-@app.route('/api/chat-rooms/<chatroomID>/<userId>/messages', methods=['POST'])
+@app.route('/api/chat-rooms/<chatroomID>/<userId>/messages', methods=['POST', 'GET'])
 def addChatroomMessagesForUser(chatroomID, userId):
     room = findChatRoom(chatroomID)
     if (room == None):
@@ -170,22 +187,24 @@ def addChatroomMessagesForUser(chatroomID, userId):
     # Check if the user is in the room
     user = findUserInChatroom(room, userId)
     if (user == None):
+        print("hvoer er brukeren=!=!=")
         return "The user is not in this room"
 
     # Read the message from request
     content = request.json
+    print("FUNBGERERE DETTE?")
+    print(content)
     if content == None:
         return "Need to provide a message"
     text = content['text']
     message = Message(text, user)
-
     room.messages.append(message)  # Adding message in list of messages
     return "Messages added"
 
 
 def findUserInChatroom(room, userId):
     for i in range(len(room.users)):
-        if room.users[i].id == userId:
+        if room.users[i] == userId:
             return room.users[i]
     return None  # Didnt find any user
 
@@ -197,12 +216,11 @@ def findChatRoom(chatroomID):
     return None
 
 
-@app.route('/api/chat-rooms/<chatroomID>', methods=['GET'])
+@app.route('/api/chat-rooms/<chatroomID>/messages', methods=['GET'])
 def getChatroom(chatroomID):
     for i in range(len(chatrooms)):
         if chatrooms[i].chatroomID == chatroomID:
             return chatrooms[i].toJSON()
-
     return "No such chatroom"
 
 
@@ -211,10 +229,10 @@ def abort_if_exists(username):
     if username in users:
         abort(409, message="User aleady exits")
 
+
 def abort_if_not_reg(username):
     if username not in users:
         abort(5, message="User not registered")
-
 
 
 # reqparser() use
@@ -238,15 +256,15 @@ def addUsers():
     content = request.json
     username = content['username']
     # Random ID to users
-    id = uuid.uuid1()
-
+    # id = users
+    id = 50 #uuid.uuid1()
+    # print(str(users))
     # id = choice(idUser)
     # Prøver å lage en id som er litt mindre kompleks
     user = User(id, username)
     users.append(user)
     return jsonify(user.id, username)
-    #abort_if_exists(username)
-
+    # abort_if_exists(username)
 
 
 # Find one specific user
@@ -254,7 +272,7 @@ def addUsers():
 def getUser(userId):
     for i in range(len(users)):
         if users[i].id == userId:
-            return users[i]
+            return users[i].toJSON
 
     return "No such user"
 
@@ -276,16 +294,6 @@ def findSpecificIndex(userId):
         if users[i].id == userId:
             return i
     return -1  # Did not find user
-
-
-@app.route('/api/room/room-id/messages')
-def getMessages():
-    return 'Hello, this is a message'
-
-
-@app.route('/api/room/room-id/user-id/messages')
-def getAllMessagesForUSer():
-    return 'Hello, this is a message'
 
 
 @app.route('/')
