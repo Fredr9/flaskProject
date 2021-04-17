@@ -302,4 +302,5 @@ def server_start():
 
 
 if __name__ == "__main__":
+    print('test 123')
     app.run(debug=True)
