@@ -12,6 +12,7 @@ botname = sys.argv[1]
 # list of words
 
 greetings = ["Hello", "Hi", "Hello there", "Heihei"]
+greetingsIfNoroom = ["Hello, do i have to make a room?!?", "Is it my job to make a room? ok!"]
 
 if botname == "Joakim":
     username = {'username': 'Joakim'}
@@ -35,25 +36,13 @@ if botname == "Joakim":
         f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                           headers={"Content-Type": "application/json"})
         print(f.status_code)
-        '''
-        requests.post('/api/chat-rooms/<chatroomID>/users'.format(roomId), json={"userId": userid},
-                      headers={"Content-Type": "application/json"})
-        '''
         # Bot sends message:
-        random.choice(greetings)
-        text = "testing"
 
+        text = random.choice(greetings)
         re = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid),
-                           data=text.format(text),
-                           json={"userId": userid},
-                           headers={"Content-Type": "application/json"})
-        print("HER DA?", re.status_code)
-        '''       
-        q = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid), json={"text": texst},
+                      json={"text": text},
                       headers={"Content-Type": "application/json"})
-        print(q)
-        #print(f'A bot has joined, {roomId}'.format(roomId))
-                      '''
+        print("HER DA?", re.status_code)
     else:
         #getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
         #data2 = getChatrooms2.json()
@@ -72,7 +61,7 @@ if botname == "Joakim":
                           json={"userId": userid},
                           headers={"Content-Type": "application/json"})
 
-        text = random.choice(greetings)
+        text = random.choice(greetingsIfNoroom)
         # Trying to send a message:
         melding = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
                       json={"text": text},
