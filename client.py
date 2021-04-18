@@ -16,6 +16,8 @@ chooser = input().lower()
 
 # Choose what you want to do with the server:
 # It depends on which key word you use:
+
+
 if chooser == "adduser":
     # user = []
     # user.append(chooser)
