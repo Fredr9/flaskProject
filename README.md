@@ -11,6 +11,8 @@ Fredrik s315714
 
 To start the server type flask run in the terminal, or python3 app.py or just start the app.py in your compiler
 
+You can use pycharm terminal or terminal to start the program. 
+
 If you run the bot.py program, you have to choose a name for your bot: yoy just type the name you want after bot.py e.g bot.py Fredrik then Fredrik starts from this list: Fredrik, Joakim, Alex and Jesper
 e.g 
 python3 bot.py Joakim
