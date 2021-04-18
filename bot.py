@@ -211,7 +211,7 @@ if botname == "Alex":
         melding = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
                       json={"text": random.choice(greetings)},
                       headers={"Content-Type": "application/json"}
-                      )-
+                      )
         print(melding.status_code, "Funker?")
 
 else:
