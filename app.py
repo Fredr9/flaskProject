@@ -66,7 +66,7 @@ class User:
 
 class Message:
     def __init__(self, text, user):
-        self.id = str(id)
+        #self.id = str(id)
         self.text = text
         self.user = user
 
