@@ -57,13 +57,13 @@ if botname == "Joakim":
     else:
         #getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
         #data2 = getChatrooms2.json()
-        print("No room exists, you need to create one")
+        print("No room exists, I will create one!")
         # Create a room:
         chatroom = {'chat-room': 'NYTTCHATROOM'}
         newChatroom = requests.post('http://127.0.0.1:5000/api/chat-rooms', json=chatroom)
         print(newChatroom.json())
         #print(data2)
-        print("Rom laget", newChatroom.json())
+        print("I made a room with ID:", newChatroom.json())
 
         # Tries to make the bot join the room it made.
         #newChatroom = json.loads(data2[0])
@@ -71,24 +71,15 @@ if botname == "Joakim":
         k = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(chatroomid),
                           json={"userId": userid},
                           headers={"Content-Type": "application/json"})
-        print(k.status_code, "FAEN DA")
+
 
         # Trying to send a message:
-
-        '''
-         curl -X POST --header "Content-Type: application/json" localhost:5000/api/chat-rooms/15/50/messages --data '{"text": "Hei!"}'
-
-        '''
         melding = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
                       json={"text": random.choice(greetings)},
                       headers={"Content-Type": "application/json"}
                       )
-        print(melding.status_code, "Funker?")
-
-
-
 else:
-    print("ukjent bot")
+    print()
 
 # botname = "Fredrik"
 # Just a duplicate for now
@@ -120,6 +111,7 @@ if botname == "Fredrik":
 
 
 
+
         '''
         requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId),
                       json={"text": "test 123"},
@@ -137,7 +129,7 @@ if botname == "Fredrik":
         print("Dette er en bot")
 
 else:
-    print("ukjent bot")
+    print("Good bye")
 
 '''
 if __name__ == "__main__":

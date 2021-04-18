@@ -66,7 +66,7 @@ class User:
 
 class Message:
     def __init__(self, text, user):
-        #self.id = str(id)
+        # self.id = str(id)
         self.text = text
         self.user = user
 
@@ -121,20 +121,16 @@ def addUserChatroom(chatroomID):
         return "Cant find the room"  # SER UT TIL Å FEILE HER!==!?
 
     # Read which user id that should be added from request-body
-    print("agaskk og hopp")
+
     print(request)
     content = request.json
     print(content)
     userId = content['userId']
-    print("Finne bruker?")
     user = getUser(userId)
-    print("Hvor er feileN?")
     print(user)
     if (user == "No such user"):
         return "Cant find user"
-    print("er den her? ")
     room.users.append(user)  # ADding the user to teh room list
-    print(" YSER WAS ADDED")
     print(room.toJSONChatroom())
     return "The user was added"
 
@@ -146,7 +142,7 @@ def getChatroomMessages(chatroomID):
     if (room == None):
         return "Cant find the room"
 
-    content = request.json
+    content = request.json()
     if content is None:
         return "UserId must be provided"
     userId = content['userId']
@@ -198,7 +194,6 @@ def addChatroomMessagesForUser(chatroomID, userId):
 
     # Read the message from request
     content = request.json
-    print("FUNBGERERE DETTE?")
     print(content)
     if content == None:
         return "Need to provide a message"
@@ -266,7 +261,8 @@ def addUsers():
     username = content['username']
     # Random ID to users
     # id = users
-    id = 50 #uuid.uuid1()
+
+    id = 50  # uuid.uuid1()
     # print(str(users))
     # id = choice(idUser)
     # Prøver å lage en id som er litt mindre kompleks
@@ -311,5 +307,5 @@ def server_start():
 
 
 if __name__ == "__main__":
-    print('test 123')
+    print('--------------starting server--------------')
     app.run(debug=True)
