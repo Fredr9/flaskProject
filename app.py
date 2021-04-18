@@ -66,7 +66,7 @@ class User:
 
 class Message:
     def __init__(self, text, user):
-        self.id = str(id)
+        #self.id = str(id)
         self.text = text
         self.user = user
 
@@ -186,7 +186,7 @@ def addChatroomMessagesForUser(chatroomID, userId):
     print(userId)
 
     room = findChatRoom(chatroomID)
-    print(room.json())
+    print(room.toJSONChatroom())
     if (room == None):
         return " cant find the room"
 

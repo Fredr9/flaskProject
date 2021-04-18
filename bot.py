@@ -73,6 +73,17 @@ if botname == "Joakim":
                           headers={"Content-Type": "application/json"})
         print(k.status_code, "FAEN DA")
 
+        # Trying to send a message:
+
+        '''
+         curl -X POST --header "Content-Type: application/json" localhost:5000/api/chat-rooms/15/50/messages --data '{"text": "Hei!"}'
+
+        '''
+        melding = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
+                      json={"text": random.choice(greetings)},
+                      headers={"Content-Type": "application/json"}
+                      )
+        print(melding.status_code, "Funker?")
 
 
 
@@ -105,6 +116,9 @@ if botname == "Fredrik":
         # Bot sends message:
         requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId), json={"userId": userid},
                       headers={"Content-Type": "application/json"})
+
+
+
 
         '''
         requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId),
