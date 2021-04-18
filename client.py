@@ -1,18 +1,7 @@
-import json
-import sys
-
-import flask
-from flask import Flask, request, jsonify
 import requests
-from flask_restful import Api, Resource, reqparse, abort
 
 url = "http://localhost:5000/api"
 chooser = input().lower()
-# Hello = sys.argv[0]
-
-#
-# showUser = requests.get('http://127.0.0.1:5000/api/chat-rooms')
-# print(showUser)
 
 # Choose what you want to do with the server:
 # It depends on which key word you use:
@@ -31,10 +20,8 @@ if chooser == "getusers":
     getUser = requests.get('http://127.0.0.1:5000/api/users')
     print(getUser.json())
 
-
 if chooser == "deleteuser":
     useriD = requests.get('http://127.0.0.1:5000/api/users')
-  #  if useriD == sys.argv[0]:
     deleteuser = requests.delete('http://127.0.0.1:5000/api/users/<userId>')
     print(deleteuser.json())
 
@@ -57,34 +44,10 @@ if chooser == "LegTilMelding":
 if chooser == "LesMelding":
     print(requests.get('/api/chat-rooms/<chatroomID>/messages'))
 
-
-
-
-
 if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom"):
     print("You need to specify what you want to do!")
 
-
-
-
 if __name__ == "__main__":
-    print('test 123')
+    print('Finished')
 
-# r = requests.get('http://127.0.0.1:5000/api/users')
-# print(newUser.json())
 
-'''
-
-En slags skallkode, må utbroderes kraftig
-Legge til botter og eventuelle svar
-while (true)
-  print: Velg Kommando:
-    1: Hent alle rom.
-    2: Lag rom.
-    3: Lag bruker
- input  = readInput()
-
-if (input = "1")
-  response = request("localhost:5000/rooms")
-  print(response)
-'''
