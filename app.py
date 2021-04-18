@@ -96,8 +96,7 @@ def addChatrooms():
     content = request.json
     chatroomname = content['chat-room']
     # Random ID to chatrooms
-    idchatroom = 15
-    # uuid.uuid1()
+    idchatroom = uuid.uuid1()
     chatroom = Chatroom(idchatroom, chatroomname)
     chatrooms.append(chatroom)
     return jsonify(chatroom.id)
@@ -189,7 +188,6 @@ def addChatroomMessagesForUser(chatroomID, userId):
     # Check if the user is in the room
     user = findUserInChatroom(room, userId)
     if (user == None):
-        print("hvoer er brukeren=!=!=")
         return "The user is not in this room"
 
     # Read the message from request
@@ -239,16 +237,6 @@ def abort_if_not_reg(username):
         abort(5, message="User not registered")
 
 
-# reqparser() use
-
-# define the classes chatrooms, messages and users
-
-
-# functions to do a specific task
-# command Api.add_resource(name of the class, route)
-# after run app.run(debug, deport)
-# Gets all the users in the system.
-
 @app.route('/api/users', methods=['GET'])
 def getUsers():
     return jsonify([user.toJSON() for user in users])
@@ -262,7 +250,7 @@ def addUsers():
     # Random ID to users
     # id = users
 
-    id = 50  # uuid.uuid1()
+    id = uuid.uuid1()
     # print(str(users))
     # id = choice(idUser)
     # Prøver å lage en id som er litt mindre kompleks
