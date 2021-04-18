@@ -72,18 +72,19 @@ if botname == "Joakim":
                           json={"userId": userid},
                           headers={"Content-Type": "application/json"})
 
-
+        text = random.choice(greetings)
         # Trying to send a message:
         melding = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
-                      json={"text": random.choice(greetings)},
+                      json={"text": text},
                       headers={"Content-Type": "application/json"}
                       )
-else:
-    print()
+        print(text)
+        print("Good bye!")
+
 
 # botname = "Fredrik"
 # Just a duplicate for now
-if botname == "Fredrik":
+elif botname == "Fredrik":
     username = {'username': 'Fredrik'}
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
     print(newUser.json())
@@ -109,20 +110,6 @@ if botname == "Fredrik":
                       headers={"Content-Type": "application/json"})
 
 
-
-
-
-        '''
-        requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId),
-                      json={"text": "test 123"},
-                      headers={"Content-Type": "application/json"})
-        print(requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId),
-                            json={"text": "test 123"},
-                            headers={"Content-Type": "application/json"}))
-
-
-'''
-
     else:
         print("There isnt a room to join")
         print(data)
@@ -131,7 +118,4 @@ if botname == "Fredrik":
 else:
     print("Good bye")
 
-'''
-if __name__ == "__main__":
-    print('test 123')
-'''
+

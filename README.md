@@ -10,7 +10,7 @@ yoy just type the name you want after bot.py e.g bot.py Fredrik
 then Fredrik starts
 from this list: Fredrik, Joakim ....
 
-The bot will enter a room if available or make a new one if there isnt any rooms.
+The bot will enter a room if available or make a new one if there isn't any rooms.
 
 then send a message to the server in that room / still trying to make this work
 
@@ -18,7 +18,7 @@ then send a message to the server in that room / still trying to make this work
 
 If you run the client program:
 Start by running python3 client.py in your terminal
-you have choices for what too do:
+you have choices for what to do:
 You choose this by input from user(You)
 EG. adduser for adding a new user, addchatroom to add a new chatroom.
 

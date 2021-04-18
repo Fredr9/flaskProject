@@ -46,6 +46,6 @@ if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addch
     print("You need to specify what you want to do!")
 
 if __name__ == "__main__":
-    print('test 123')
+    print('Finished')
 
 
