@@ -1,7 +1,7 @@
 import json
 import random
 import sys
-#from typing import Dict
+# from typing import Dict
 
 import requests
 
@@ -44,9 +44,9 @@ if botname == "Joakim":
         text = "testing"
 
         re = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid),
-                      data=text.format(text),
-                      json={"userId": userid},
-                      headers={"Content-Type": "application/json"})
+                           data=text.format(text),
+                           json={"userId": userid},
+                           headers={"Content-Type": "application/json"})
         print("HER DA?", re.status_code)
         '''       
         q = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid), json={"text": texst},
@@ -55,12 +55,27 @@ if botname == "Joakim":
         #print(f'A bot has joined, {roomId}'.format(roomId))
                       '''
     else:
+        #getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
+        #data2 = getChatrooms2.json()
         print("No room exists, you need to create one")
         # Create a room:
-        chatroom = {'chat-room': input()}
+        chatroom = {'chat-room': 'NYTTCHATROOM'}
         newChatroom = requests.post('http://127.0.0.1:5000/api/chat-rooms', json=chatroom)
         print(newChatroom.json())
-        print(data)
+        #print(data2)
+        print("Rom laget", newChatroom.json())
+
+        # Tries to make the bot join the room it made.
+        #newChatroom = json.loads(data2[0])
+        chatroomid = newChatroom.json()
+        k = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(chatroomid),
+                          json={"userId": userid},
+                          headers={"Content-Type": "application/json"})
+        print(k.status_code, "FAEN DA")
+
+
+
+
 else:
     print("ukjent bot")
 

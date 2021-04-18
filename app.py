@@ -96,7 +96,8 @@ def addChatrooms():
     content = request.json
     chatroomname = content['chat-room']
     # Random ID to chatrooms
-    idchatroom = 15#uuid.uuid1()
+    idchatroom = 15
+    # uuid.uuid1()
     chatroom = Chatroom(idchatroom, chatroomname)
     chatrooms.append(chatroom)
     return jsonify(chatroom.id)
@@ -106,10 +107,10 @@ def addChatrooms():
 @app.route('/api/chat-rooms/<chatroomID>/users', methods=['GET'])
 def getUsersInChatroom(chatroomID):
     room = findChatRoom(chatroomID)
-    if (room == None):
+    if room is None:
         return "Cant find room"
 
-    return jsonify([user() for user in room.users])
+    return jsonify([user for user in room.users])
 
 
 # Add users to a room
@@ -128,13 +129,13 @@ def addUserChatroom(chatroomID):
     print("Finne bruker?")
     user = getUser(userId)
     print("Hvor er feileN?")
-    #print(user)
+    print(user)
     if (user == "No such user"):
         return "Cant find user"
     print("er den her? ")
     room.users.append(user)  # ADding the user to teh room list
     print(" YSER WAS ADDED")
-    #print(room.toJSONChatroom)
+    print(room.toJSONChatroom())
     return "The user was added"
 
 
@@ -180,7 +181,12 @@ def getChatroomMessagesFromUser(chatroomID, userId):
 # post messages in one chatroom
 @app.route('/api/chat-rooms/<chatroomID>/<userId>/messages', methods=['POST', 'GET'])
 def addChatroomMessagesForUser(chatroomID, userId):
+    print("add chatroom message for user")
+    print(chatroomID)
+    print(userId)
+
     room = findChatRoom(chatroomID)
+    print(room.json())
     if (room == None):
         return " cant find the room"
 
@@ -203,8 +209,11 @@ def addChatroomMessagesForUser(chatroomID, userId):
 
 
 def findUserInChatroom(room, userId):
+    print(userId)
     for i in range(len(room.users)):
-        if room.users[i] == userId:
+        print(room.users)
+        user = json.loads(room.users[i])
+        if user['id'] == userId:
             return room.users[i]
     return None  # Didnt find any user
 
@@ -272,7 +281,7 @@ def addUsers():
 def getUser(userId):
     for i in range(len(users)):
         if users[i].id == userId:
-            return users[i].toJSON
+            return users[i].toJSON()
 
     return "No such user"
 
