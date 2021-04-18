@@ -43,6 +43,7 @@ for intent in bots ["BotA", "BotB", "BotC", "BotD"]:
 
 
 class Chatroom:
+    @staticmethod
     def __init__(self, id, roomname):
         self.id = str(id)
         self.roomname = roomname
@@ -55,6 +56,7 @@ class Chatroom:
 
 
 class User:
+    @staticmethod
     def __init__(self, id, username):
         self.id = str(id)
         self.username = username
@@ -65,6 +67,7 @@ class User:
 
 
 class Message:
+    @staticmethod
     def __init__(self, text, user):
         #self.id = str(id)
         self.text = text
