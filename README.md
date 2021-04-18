@@ -18,8 +18,17 @@ then send a message to the server in that room / still trying to make this work
 
 If you run the client program:
 Start by running python3 client.py in your terminal
-you have choices for what too do:
 You choose this by input from user(You)
-EG. adduser for adding a new user, addchatroom to add a new chatroom.
+The choices you have are:
+
+adduser: for adding a new user
+getusers: to get current users
+addchatroom: to add a new chatroom
+getchatrooms: to get current chatrooms
+
+We have tried to add all the operations and restrictions that the task asked for but have struggled
+to add some functions and the global restrictions. what we have managed to create is a server where 
+we can add chatrooms and users, we also have bots that can be added to the rooms.
+
 
 

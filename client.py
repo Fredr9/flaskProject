@@ -74,7 +74,7 @@ if chooser == "Batman":
 
 '''
 
-if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom"):
+if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom", "deleteuser"):
     print("You need to specify what you want to do!")
 
 

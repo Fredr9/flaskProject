@@ -235,8 +235,8 @@ def getChatroom(chatroomID):
 
 
 # Abort functions
-def abort_if_exists(username):
-    if username in users:
+def abort_if_exists(some_id: str, iterable: iter):
+    if some_id in iterable:
         abort(409, message="User aleady exits")
 
 
@@ -278,6 +278,7 @@ def addUsers():
     # Prøver å lage en id som er litt mindre kompleks
     user = User(id, username)
     users.append(user)
+    #abort_if_exists(user['username'], users)
     return jsonify(user.id, username)
     # abort_if_exists(username)
 
