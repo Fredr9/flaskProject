@@ -1,7 +1,7 @@
 import json
 import random
 import sys
-from typing import Dict
+#from typing import Dict
 
 import requests
 
