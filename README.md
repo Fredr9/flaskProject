@@ -1,7 +1,13 @@
 # flaskProject
 
 
-Oblig2
+Oblig2 data 2410 for
+Alex s336111
+Jesper s341861 
+Fredrik s315714
+
+
+
 
 To start the server type flask run in the terminal, or python3 app.py or just start the app.py in your compiler
 
