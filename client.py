@@ -22,6 +22,7 @@ if chooser == "adduser":
     # if user[0] == user[1]:
     #    print(" the user already exist")
     username = {'username': input()}
+
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
     print(newUser.json())
 

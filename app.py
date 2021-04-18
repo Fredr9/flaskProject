@@ -227,6 +227,10 @@ def abort_if_not_reg(username):
         abort(5, message="User not registered")
 
 
+def abort_if_not_exist(username):
+    if username not in users:
+        abort(404, message="could not find user")
+
 
 # reqparser() use
 
