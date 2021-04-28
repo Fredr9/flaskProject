@@ -252,4 +252,4 @@ elif botname == "Alex":
 
 
 if botname not in {"Joakim", "Fredrik", "Alex", "Jesper"}:
-    print("You need to choose one of theese bots: Joakim, Fredrik, Alex or Jesper")
+    print("You need to choose one of these bots: Joakim, Fredrik, Alex or Jesper")

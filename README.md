@@ -15,7 +15,7 @@ The bot will enter a room if available or make a new one if there isn't any room
 then send a message to the server in that room / still trying to make this work
 
 
-
+__
 If you run the client program:
 Start by running python3 client.py in your terminal
 you have choices for what to do:
