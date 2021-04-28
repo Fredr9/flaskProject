@@ -12,7 +12,7 @@ if chooser == "adduser":
     # user.append(chooser)
     # if user[0] == user[1]:
     #    print(" the user already exist")
-    username = {'username': input()}
+    username = {'username': input("Enter the name of the user you want to add:")}
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
     print(newUser.json())
 
@@ -26,7 +26,7 @@ if chooser == "deleteuser":
     print(deleteuser.json())
 
 if chooser in ("addchatrooms", "addchatroom"):
-    chatroom = {'chat-room': input()}
+    chatroom = {'chat-room': input("Add chatroom and you choose the name:")}
     newChatroom = requests.post('http://127.0.0.1:5000/api/chat-rooms', json=chatroom)
     print(newChatroom.json())
 

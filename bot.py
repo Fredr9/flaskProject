@@ -20,7 +20,6 @@ greetingsIfNoroom3 = ["Looks like I have to make a room then"]
 greetingsAlex = ["Mr.Alex har ankommet festen", "Haihai", "welcome me", "I have arrived"]
 greetingsIfNoroom4 = ["I have to take responsibility and make a room"]
 
-
 if botname == "Joakim":
     username = {'username': 'Joakim'}
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
@@ -249,7 +248,6 @@ elif botname == "Alex":
                                 )
         print(text)
         print("Good bye!")
-
 
 if botname not in {"Joakim", "Fredrik", "Alex", "Jesper"}:
     print("You need to choose one of these bots: Joakim, Fredrik, Alex or Jesper")
