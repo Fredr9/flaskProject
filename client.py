@@ -1,10 +1,13 @@
 import requests
 
 url = "http://localhost:5000/api"
-chooser = input().lower()
+commands = "Available commands: adduser, getusers, getchatrooms, addchatrooms \n:"
+chooser = input(commands).lower()
 
 # Choose what you want to do with the server:
 # It depends on which key word you use:
+
+
 
 
 if chooser == "adduser":
