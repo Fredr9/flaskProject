@@ -25,6 +25,7 @@ if chooser == "deleteuser":
     deleteuser = requests.delete('http://127.0.0.1:5000/api/users/<userId>')
     print(deleteuser.json())
 
+
 if chooser in ("addchatrooms", "addchatroom"):
     chatroom = {'chat-room': input("Add chatroom and you choose the name:")}
     newChatroom = requests.post('http://127.0.0.1:5000/api/chat-rooms', json=chatroom)
@@ -49,5 +50,3 @@ if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addch
 
 if __name__ == "__main__":
     print('Finished')
-
-
