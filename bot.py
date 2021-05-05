@@ -6,8 +6,9 @@ import sys
 import requests
 
 url = "http://localhost:5000/api"
-# chooser = input().lower()
-botname = sys.argv[1]
+availablebots = "Available bots are: Joakim, Fredrik, Alex or Jesper, Type the name of the bot you want too choose:"
+botname = input(availablebots).lower()
+#botname = sys.argv[1]
 
 # list of words
 
@@ -20,7 +21,7 @@ greetingsIfNoroom3 = ["Looks like I have to make a room then"]
 greetingsAlex = ["Mr.Alex har ankommet festen", "Haihai", "welcome me", "I have arrived"]
 greetingsIfNoroom4 = ["I have to take responsibility and make a room"]
 
-if botname == "Joakim":
+if botname == "joakim":
     username = {'username': 'Joakim'}
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
     print(newUser.json())
@@ -33,22 +34,27 @@ if botname == "Joakim":
 
     if len(data) > 0:
         room = json.loads(data[0])
-        print(room)
-        print(" Fant et cahtroom")
-        print(room['id'])
+        #print(room)
+        # Printing the name of the room you are joining:
+        print(" Joining a chatroom with name " + room['roomname'])
+        #print(room['id'])
         # Make a variable with room id extracted
         roomId = room['id']
         # Bot joining the first room:
         f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                           headers={"Content-Type": "application/json"})
-        print(f.status_code)
+
         # Bot sends message:
 
         text = random.choice(greetingsJoakim)
         re = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid),
                            json={"text": text},
                            headers={"Content-Type": "application/json"})
-        print("HER DA?", re.status_code)
+
+        print("\n ### A NEW MESSAGE POSTED ### \n")
+        print(botname + ": " + text)
+        print("### MESSAGE ENDED ###")
+
     else:
         # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
         # data2 = getChatrooms2.json()
@@ -76,7 +82,7 @@ if botname == "Joakim":
         print(text)
         print("Good bye!")
 
-elif botname == "Fredrik":
+elif botname == "fredrik":
     username = {'username': 'Fredrik'}
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
     print(newUser.json())
@@ -97,14 +103,14 @@ elif botname == "Fredrik":
         # Bot joining the first room:
         f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                           headers={"Content-Type": "application/json"})
-        print(f.status_code)
+
         # Bot sends message:
 
         text = random.choice(greetingsFedrik)
         re = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid),
                            json={"text": text},
                            headers={"Content-Type": "application/json"})
-        print("HER DA?", re.status_code)
+
     else:
         # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
         # data2 = getChatrooms2.json()
@@ -136,7 +142,7 @@ elif botname == "Fredrik":
 
 
 
-elif botname == "Jesper":
+elif botname == "jesper":
     username = {'username': 'Jesper'}
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
     print(newUser.json())
@@ -193,7 +199,7 @@ elif botname == "Jesper":
         print("Good bye!")
 
 
-elif botname == "Alex":
+elif botname == "alex":
     username = {'username': 'Alex'}
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
     print(newUser.json())
@@ -214,14 +220,11 @@ elif botname == "Alex":
         # Bot joining the first room:
         f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                           headers={"Content-Type": "application/json"})
-        print(f.status_code)
-        # Bot sends message:
-
+       # Bot sends message:
         text = random.choice(greetingsAlex)
         re = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid),
                            json={"text": text},
                            headers={"Content-Type": "application/json"})
-        print("HER DA?", re.status_code)
     else:
         # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
         # data2 = getChatrooms2.json()
@@ -249,5 +252,5 @@ elif botname == "Alex":
         print(text)
         print("Good bye!")
 
-if botname not in {"Joakim", "Fredrik", "Alex", "Jesper"}:
+if botname not in {"joakim", "fredrik", "alex", "jesper"}:
     print("You need to choose one of these bots: Joakim, Fredrik, Alex or Jesper")
