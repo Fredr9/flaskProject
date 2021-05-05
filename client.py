@@ -46,7 +46,9 @@ while True:
         getSpecificChatRoom = requests.get('http://127.0.0.1:5000/api/chat-rooms')
 
     if chooser == "getmessages":
-        getSpecificChatRoom = requests.get('/api/chat-rooms/<chatroomID>/messages')
+        id = input("Provide chatroom id:")
+        # NEED TO FORMAT ID
+        getSpecificChatRoom = requests.get('/api/chat-rooms/<id>/messages').__format__()
 
     if chooser == "LesMelding":
         print(requests.get('/api/chat-rooms/<chatroomID>/messages'))
