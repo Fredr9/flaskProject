@@ -26,6 +26,10 @@ greetingsIfNoroom4 = ["I have to take responsibility and make a room"]
 if botname == "joakim":
     username = {'username': 'Joakim'}
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
+    if newUser.status_code == 409:
+        print("User already exists")
+        exit(409)
+
     print(newUser.json())
     data = newUser.json()
     userid = data[0]

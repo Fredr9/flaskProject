@@ -250,6 +250,9 @@ def addUsers():
     # Random ID to users
     # id = users
 
+    if findUserByUsername(username):
+        abort(409, message="User already exist")
+
     id = uuid.uuid1()
     # print(str(users))
     # id = choice(idUser)
@@ -258,6 +261,14 @@ def addUsers():
     users.append(user)
     return jsonify(user.id, username)
     # abort_if_exists(username)
+
+# Function that find user by username:
+def findUserByUsername(username):
+    for i in range(len(users)):
+        if users[i].username == username:
+            return users[i]
+    # Did not find user
+    return None
 
 
 # Find one specific user
