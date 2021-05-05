@@ -1,6 +1,6 @@
 import json
 import random
-import sys
+# import sys
 # from typing import Dict
 
 import requests
@@ -13,7 +13,7 @@ botname = input(availablebots).lower()
 # list of words
 
 greetingsJoakim = ["Hello", "Hi", "Hello there", "Heihei"]
-greetingsIfNoroom1 = ["Hello, do i have to make a room?!?", "Is it my job to make a room? ok!"]
+greetingsIfNoroomJoakim = ["Hello, I made a new ROOM even if it wasnt my job!", "You didnt care to make a new room, so i did!"]
 greetingsFedrik = ["Hallo", "Hei", "Næmmen er det noen her", "Jeg har ankommet"]
 greetingsIfNoroom2 = ["Hello? anyone here? I make a room for anyone wants to join"]
 greetingsJesper = ["Hallo der", "God morgen", "morn", "Hvorfor er jeg her"]
@@ -27,7 +27,7 @@ if botname == "joakim":
     print(newUser.json())
     data = newUser.json()
     userid = data[0]
-    print(userid)
+    #print(userid)
 
     getChatrooms = requests.get('http://127.0.0.1:5000/api/chat-rooms')
     data = getChatrooms.json()
@@ -60,7 +60,8 @@ if botname == "joakim":
         # data2 = getChatrooms2.json()
         print("No room exists, I will create one!")
         # Create a room:
-        chatroom = {'chat-room': 'NYTTCHATROOM'}
+        chatroom = {'chat-room': input("Make a new chatroom:")}
+
         newChatroom = requests.post('http://127.0.0.1:5000/api/chat-rooms', json=chatroom)
         print(newChatroom.json())
         # print(data2)
@@ -73,7 +74,7 @@ if botname == "joakim":
                           json={"userId": userid},
                           headers={"Content-Type": "application/json"})
 
-        text = random.choice(greetingsIfNoroom1)
+        text = random.choice(greetingsIfNoroomJoakim)
         # Trying to send a message:
         melding = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
                                 json={"text": text},
@@ -96,7 +97,7 @@ elif botname == "fredrik":
     if len(data) > 0:
         room = json.loads(data[0])
         print(room)
-        print(" Fant et cahtroom")
+        print(" Fant et chatroom")
         print(room['id'])
         # Make a variable with room id extracted
         roomId = room['id']
