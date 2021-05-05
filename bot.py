@@ -2,18 +2,20 @@ import json
 import random
 # import sys
 # from typing import Dict
+import time
 
 import requests
 
 url = "http://localhost:5000/api"
 availablebots = "Available bots are: Joakim, Fredrik, Alex or Jesper, Type the name of the bot you want too choose:"
 botname = input(availablebots).lower()
-#botname = sys.argv[1]
+# botname = sys.argv[1]
 
 # list of words
 
 greetingsJoakim = ["Hello", "Hi", "Hello there", "Heihei"]
-greetingsIfNoroomJoakim = ["Hello, I made a new ROOM even if it wasnt my job!", "You didnt care to make a new room, so i did!"]
+greetingsIfNoroomJoakim = ["Hello, I made a new ROOM even if it wasnt my job!",
+                           "You didnt care to make a new room, so i did!"]
 greetingsFedrik = ["Hallo", "Hei", "Næmmen er det noen her", "Jeg har ankommet"]
 greetingsIfNoroom2 = ["Hello? anyone here? I make a room for anyone wants to join"]
 greetingsJesper = ["Hallo der", "God morgen", "morn", "Hvorfor er jeg her"]
@@ -27,17 +29,17 @@ if botname == "joakim":
     print(newUser.json())
     data = newUser.json()
     userid = data[0]
-    #print(userid)
+    # print(userid)
 
     getChatrooms = requests.get('http://127.0.0.1:5000/api/chat-rooms')
     data = getChatrooms.json()
 
     if len(data) > 0:
         room = json.loads(data[0])
-        #print(room)
+        # print(room)
         # Printing the name of the room you are joining:
         print(" Joining a chatroom with name " + room['roomname'])
-        #print(room['id'])
+        # print(room['id'])
         # Make a variable with room id extracted
         roomId = room['id']
         # Bot joining the first room:
@@ -53,7 +55,7 @@ if botname == "joakim":
 
         print("\n ### A NEW MESSAGE POSTED ### \n")
         print(botname + ": " + text)
-        print("### MESSAGE ENDED ###")
+        print("\n### MESSAGE ENDED ###\n")
 
     else:
         # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
@@ -80,7 +82,18 @@ if botname == "joakim":
                                 json={"text": text},
                                 headers={"Content-Type": "application/json"}
                                 )
+        print("\n ### A NEW MESSAGE POSTED ### \n")
         print(text)
+        print("\n### MESSAGE ENDED ###\n")
+        time.sleep(3)
+        text2 = "This is my second message"
+        # Trying to send a message:
+        requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
+                      json={"text": text2},
+                      headers={"Content-Type": "application/json"})
+        print("\n ### A NEW MESSAGE POSTED ### \n")
+        print(text2)
+        print("\n### MESSAGE ENDED ###\n")
         print("Good bye!")
 
 elif botname == "fredrik":
@@ -221,7 +234,7 @@ elif botname == "alex":
         # Bot joining the first room:
         f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                           headers={"Content-Type": "application/json"})
-       # Bot sends message:
+        # Bot sends message:
         text = random.choice(greetingsAlex)
         re = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid),
                            json={"text": text},
