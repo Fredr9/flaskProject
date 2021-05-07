@@ -16,20 +16,19 @@ botname = input(availablebots).lower()
 greetingsJoakim = ["Hello", "Hi", "Hello there", "Heihei"]
 greetingsIfNoroomJoakim = ["Hello, I made a new ROOM even if it wasnt my job!",
                            "You didnt care to make a new room, so i did!"]
-greetingsFedrik = ["Hallo", "Hei", "Næmmen er det noen her", "Jeg har ankommet"]
-greetingsIfNoroom2 = ["Hello? anyone here? I make a room for anyone wants to join"]
+greetingsFredrik = ["Hallo", "Hei", "Næmmen er det noen her", "Jeg har ankommet"]
+greetingsIfNoroomFredrik = ["Hello? anyone here? I make a room for anyone wants to join"]
 greetingsJesper = ["Hallo der", "God morgen", "morn", "Hvorfor er jeg her"]
-greetingsIfNoroom3 = ["Looks like I have to make a room then"]
+greetingsIfNoroomJesper = ["Looks like I have to make a room then"]
 greetingsAlex = ["Mr.Alex har ankommet festen", "Haihai", "welcome me", "I have arrived"]
-greetingsIfNoroom4 = ["I have to take responsibility and make a room"]
+greetingsIfNoroomAlex = ["I have to take responsibility and make a room"]
 
 if botname == "joakim":
     username = {'username': 'Joakim'}
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
     if newUser.status_code == 409:
-        print("User already exists")
+        print("User Joakim already exists")
         exit(409)
-
     print(newUser.json())
     data = newUser.json()
     userid = data[0]
@@ -100,22 +99,27 @@ if botname == "joakim":
         print("\n### MESSAGE ENDED ###\n")
         print("Good bye!")
 
+
 elif botname == "fredrik":
     username = {'username': 'Fredrik'}
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
+    if newUser.status_code == 409:
+        print("User Fredrik already exists")
+        exit(409)
     print(newUser.json())
     data = newUser.json()
     userid = data[0]
-    print(userid)
+    # print(userid)
 
     getChatrooms = requests.get('http://127.0.0.1:5000/api/chat-rooms')
     data = getChatrooms.json()
 
     if len(data) > 0:
         room = json.loads(data[0])
-        print(room)
-        print(" Fant et chatroom")
-        print(room['id'])
+        # print(room)
+        # Printing the name of the room you are joining:
+        print(" Joining a chatroom with name " + room['roomname'])
+        # print(room['id'])
         # Make a variable with room id extracted
         roomId = room['id']
         # Bot joining the first room:
@@ -124,17 +128,22 @@ elif botname == "fredrik":
 
         # Bot sends message:
 
-        text = random.choice(greetingsFedrik)
+        text = random.choice(greetingsFredrik)
         re = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid),
                            json={"text": text},
                            headers={"Content-Type": "application/json"})
+
+        print("\n ### A NEW MESSAGE POSTED ### \n")
+        print(botname + ": " + text)
+        print("\n### MESSAGE ENDED ###\n")
 
     else:
         # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
         # data2 = getChatrooms2.json()
         print("No room exists, I will create one!")
         # Create a room:
-        chatroom = {'chat-room': 'NYTTCHATROOM'}
+        chatroom = {'chat-room': input("Make a new chatroom:")}
+
         newChatroom = requests.post('http://127.0.0.1:5000/api/chat-rooms', json=chatroom)
         print(newChatroom.json())
         # print(data2)
@@ -147,22 +156,33 @@ elif botname == "fredrik":
                           json={"userId": userid},
                           headers={"Content-Type": "application/json"})
 
-        text = random.choice(greetingsIfNoroom2)
+        text = random.choice(greetingsIfNoroomFredrik)
         # Trying to send a message:
         melding = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
                                 json={"text": text},
                                 headers={"Content-Type": "application/json"}
                                 )
+        print("\n ### A NEW MESSAGE POSTED ### \n")
         print(text)
+        print("\n### MESSAGE ENDED ###\n")
+        time.sleep(3)
+        text2 = "This is my second message"
+        # Trying to send a message:
+        requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
+                      json={"text": text2},
+                      headers={"Content-Type": "application/json"})
+        print("\n ### A NEW MESSAGE POSTED ### \n")
+        print(text2)
+        print("\n### MESSAGE ENDED ###\n")
         print("Good bye!")
-
-
-
 
 
 elif botname == "jesper":
     username = {'username': 'Jesper'}
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
+    if newUser.status_code == 409:
+        print("User Jesper already exists")
+        exit(409)
     print(newUser.json())
     data = newUser.json()
     userid = data[0]
@@ -207,7 +227,7 @@ elif botname == "jesper":
                           json={"userId": userid},
                           headers={"Content-Type": "application/json"})
 
-        text = random.choice(greetingsIfNoroom3)
+        text = random.choice(greetingsIfNoroomJesper)
         # Trying to send a message:
         melding = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
                                 json={"text": text},
@@ -220,6 +240,9 @@ elif botname == "jesper":
 elif botname == "alex":
     username = {'username': 'Alex'}
     newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
+    if newUser.status_code == 409:
+        print("User Alex already exists")
+        exit(409)
     print(newUser.json())
     data = newUser.json()
     userid = data[0]
@@ -261,7 +284,7 @@ elif botname == "alex":
                           json={"userId": userid},
                           headers={"Content-Type": "application/json"})
 
-        text = random.choice(greetingsIfNoroom4)
+        text = random.choice(greetingsIfNoroomAlex)
         # Trying to send a message:
         melding = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
                                 json={"text": text},

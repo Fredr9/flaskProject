@@ -121,16 +121,16 @@ def addUserChatroom(chatroomID):
 
     # Read which user id that should be added from request-body
 
-    print(request)
+    #print(request)
     content = request.json
-    print(content)
+    #print(content)
     userId = content['userId']
     user = getUser(userId)
-    print(user)
+    #print(user)
     if (user == "No such user"):
         return "Cant find user"
     room.users.append(user)  # ADding the user to teh room list
-    print(room.toJSONChatroom())
+    #print(room.toJSONChatroom())
     return "The user was added"
 
 
@@ -176,35 +176,51 @@ def getChatroomMessagesFromUser(chatroomID, userId):
 # post messages in one chatroom
 @app.route('/api/chat-rooms/<chatroomID>/<userId>/messages', methods=['POST', 'GET'])
 def addChatroomMessagesForUser(chatroomID, userId):
-    print("add chatroom message for user")
-    print(chatroomID)
-    print(userId)
+    #print("add chatroom message for user")
+    #print(chatroomID)
+    #print(userId)
 
     room = findChatRoom(chatroomID)
-    print(room.toJSONChatroom())
+    #print(room.toJSONChatroom())
     if (room == None):
         return " cant find the room"
 
     # Check if the user is in the room
     user = findUserInChatroom(room, userId)
-    if (user == None):
+    if user is None:
         return "The user is not in this room"
 
     # Read the message from request
     content = request.json
-    print(content)
+   # text = content['text']
+   # spesuser = str(user[0])
+   # print(spesuser)
+
+
+    #print(user + text)
+    #print(content)
+    #navn = user
+    #print(navn)
+    # content =  messages {'text': 'This is my second message'}
+    # user = {
+    #     "id": "f78f4c70-af0b-11eb-b4ff-051ddc0b6ae1",
+    #     "username": "Joakim"
+    # }
+
+    #print(user)
     if content == None:
         return "Need to provide a message"
     text = content['text']
     message = Message(text, user)
     room.messages.append(message)  # Adding message in list of messages
+
     return "Messages added"
 
 
 def findUserInChatroom(room, userId):
-    print(userId)
+    #print(userId)
     for i in range(len(room.users)):
-        print(room.users)
+        #print(room.users)
         user = json.loads(room.users[i])
         if user['id'] == userId:
             return room.users[i]
