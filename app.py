@@ -1,3 +1,4 @@
+import collections
 import uuid
 
 # import nltk as nltk
@@ -65,7 +66,7 @@ class User:
 
 
 class Message:
-    def __init__(self, text, user):
+    def __init__(self, text, user) -> object:
         # self.id = str(id)
         self.text = text
         self.user = user
@@ -176,12 +177,7 @@ def getChatroomMessagesFromUser(chatroomID, userId):
 # post messages in one chatroom
 @app.route('/api/chat-rooms/<chatroomID>/<userId>/messages', methods=['POST', 'GET'])
 def addChatroomMessagesForUser(chatroomID, userId):
-    #print("add chatroom message for user")
-    #print(chatroomID)
-    #print(userId)
-
     room = findChatRoom(chatroomID)
-    #print(room.toJSONChatroom())
     if (room == None):
         return " cant find the room"
 
@@ -192,15 +188,6 @@ def addChatroomMessagesForUser(chatroomID, userId):
 
     # Read the message from request
     content = request.json
-   # text = content['text']
-   # spesuser = str(user[0])
-   # print(spesuser)
-
-
-    #print(user + text)
-    #print(content)
-    #navn = user
-    #print(navn)
     # content =  messages {'text': 'This is my second message'}
     # user = {
     #     "id": "f78f4c70-af0b-11eb-b4ff-051ddc0b6ae1",
@@ -212,8 +199,23 @@ def addChatroomMessagesForUser(chatroomID, userId):
         return "Need to provide a message"
     text = content['text']
     message = Message(text, user)
+    '''
+    print("CONTENT:")
+    print(content)
+    print("USER:")
+    print(user)
+    print("ROOOM:")
+    room.messages.append(str(message))  # Adding message in list of messages
+    melding = room.messages
+    print("ÅH ER DETTE FOR NÅE")
+    print(type(melding))
+    '''
     room.messages.append(message)  # Adding message in list of messages
-
+    #meldinger = json.dumps(room.messages, default=list)
+    #print(meldinger)
+    #for message in messages:
+    #    print(message.toJSON())
+    #print(room.messages.toJson)
     return "Messages added"
 
 
