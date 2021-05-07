@@ -3,8 +3,8 @@ import json
 import requests
 
 url = "http://localhost:5000/api"
-commands = "Available commands: adduser, getusers, getchatrooms, addchatrooms \n" \
-           " exit to stop the program:"
+commands = "Available commands: adduser, getusers, getchatrooms, addchatrooms or getmessages \n" \
+           "** or exit to stop the program:"
 # chooser = input(commands).lower()
 
 # Choose what you want to do with the server:
@@ -22,7 +22,12 @@ while True:
 
     if chooser == "getusers":
         getUser = requests.get('http://127.0.0.1:5000/api/users')
-        print(getUser.json())
+        users = getUser.json()
+        print("### Users ###\n")
+        for i in range(len(users)):
+            user = json.loads(users[i])
+            print(user['username'] + ": " + user['id'] + "\n")
+        #print(getUser.json())
 
     if chooser == "deleteuser":
         useriD = requests.get('http://127.0.0.1:5000/api/users')
@@ -44,11 +49,16 @@ while True:
         # Get users from a specific room:
     if chooser == "GetSpesificRoom":
         getSpecificChatRoom = requests.get('http://127.0.0.1:5000/api/chat-rooms')
+        print(getSpecificChatRoom)
 
     if chooser == "getmessages":
         id = input("Provide chatroom id:")
         # NEED TO FORMAT ID
-        getSpecificChatRoom = requests.get('/api/chat-rooms/<id>/messages').__format__()
+        getSpecificChatRoom = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(id))
+        messagetojson = getSpecificChatRoom.json()
+        for i in range(len(messagetojson)):
+            messages = json.loads(messagetojson[i])
+            print(messages['message'] + ": ")
 
     if chooser == "LesMelding":
         print(requests.get('/api/chat-rooms/<chatroomID>/messages'))
@@ -56,7 +66,7 @@ while True:
     if chooser == "exit":
         exit()
 
-    if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom"):
+    if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom", "getmessages"):
         print("You need to specify what you want to do!")
 
 

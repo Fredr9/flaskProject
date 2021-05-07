@@ -140,7 +140,7 @@ def getChatroomMessages(chatroomID):
     room = findChatRoom(chatroomID)
     if (room == None):
         return "Cant find the room"
-
+    #print(request.url)
     content = request.json()
     if content is None:
         return "UserId must be provided"
