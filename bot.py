@@ -269,66 +269,83 @@ elif botname == "alex":
     data = getChatrooms.json()
 
     if len(data) > 0:
-        room = json.loads(data[0])
-        # print(room)
-        # Printing the name of the room you are joining:
-        print(" Joining a chatroom with name " + room['roomname'])
-        # print(room['id'])
-        # Make a variable with room id extracted
-        roomId = room['id']
-        # Bot joining the first room:
-        f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
-                          headers={"Content-Type": "application/json"})
+        while True:
 
-        # Bot sends message:
+            time.sleep(3)
+            room = json.loads(data[0])
+            # print(room)
+            # Printing the name of the room you are joining:
+            print(" Joining a chatroom with name " + room['roomname'])
+            # print(room['id'])
+            # Make a variable with room id extracted
+            roomId = room['id']
+            # Bot joining the first room:
+            f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
+                              headers={"Content-Type": "application/json"})
 
-        text = random.choice(greetingsAlex)
-        re = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid),
-                           json={"text": text},
-                           headers={"Content-Type": "application/json"})
+            # Bot sends message:
 
-        print("\n ### A NEW MESSAGE POSTED ### \n")
-        print(botname + ": " + text)
-        print("\n### MESSAGE ENDED ###\n")
+            text = random.choice(greetingsAlex)
+            re = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid),
+                               json={"text": text},
+                               headers={"Content-Type": "application/json"})
+
+            print("\n ### A NEW MESSAGE POSTED ### \n")
+            print(botname + ": " + text)
+            print("\n### MESSAGE ENDED ###\n")
+            if input("Do you want to exit?") == "exit":
+                breakpoint(input(), exit("STOPP"))
+            #breakpoint(time.sleep(9), exit("NÅ ER DET NOK!"))
 
     else:
-        # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
-        # data2 = getChatrooms2.json()
-        print("No room exists, I will create one!")
-        # Create a room:
-        chatroom = {'chat-room': input("Make a new chatroom:")}
+        while True:
 
-        newChatroom = requests.post('http://127.0.0.1:5000/api/chat-rooms', json=chatroom)
-        print(newChatroom.json())
-        # print(data2)
-        print("I made a room with ID:", newChatroom.json())
+            # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
+            # data2 = getChatrooms2.json()
+            print("No room exists, I will create one!")
+            # Create a room:
+            chatroom = {'chat-room': input("Make a new chatroom:")}
 
-        # Tries to make the bot join the room it made.
-        # newChatroom = json.loads(data2[0])
-        chatroomid = newChatroom.json()
-        k = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(chatroomid),
-                          json={"userId": userid},
+            newChatroom = requests.post('http://127.0.0.1:5000/api/chat-rooms', json=chatroom)
+            print(newChatroom.json())
+            # print(data2)
+            print("I made a room with ID:", newChatroom.json())
+
+            # Tries to make the bot join the room it made.
+            # newChatroom = json.loads(data2[0])
+            chatroomid = newChatroom.json()
+            k = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(chatroomid),
+                              json={"userId": userid},
+                              headers={"Content-Type": "application/json"})
+
+            text = random.choice(greetingsIfNoroomAlex)
+            time.sleep(3)
+            # Trying to send a message:
+            melding = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
+                                    json={"text": text},
+                                    headers={"Content-Type": "application/json"}
+                                    )
+            print("\n ### A NEW MESSAGE POSTED ### \n")
+            print(text)
+            print("\n### MESSAGE ENDED ###\n")
+            time.sleep(3)
+            text2 = "This is Alex's second message"
+            # Trying to send a message:
+            requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
+                          json={"text": text2},
                           headers={"Content-Type": "application/json"})
+            time.sleep(3)
+            print("\n ### A NEW MESSAGE POSTED ### \n")
+            print(text2)
+            print("\n### MESSAGE ENDED ###\n")
 
-        text = random.choice(greetingsIfNoroomAlex)
-        # Trying to send a message:
-        melding = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
-                                json={"text": text},
-                                headers={"Content-Type": "application/json"}
-                                )
-        print("\n ### A NEW MESSAGE POSTED ### \n")
-        print(text)
-        print("\n### MESSAGE ENDED ###\n")
-        time.sleep(3)
-        text2 = "This is Alex's second message"
-        # Trying to send a message:
-        requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
-                      json={"text": text2},
-                      headers={"Content-Type": "application/json"})
-        print("\n ### A NEW MESSAGE POSTED ### \n")
-        print(text2)
-        print("\n### MESSAGE ENDED ###\n")
-        print("Good bye!")
+            test = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
+                          headers={"Content-Type": "application/json"})
+            print(test)
+            print("Good bye!")
+            if input("Do you want to exit?") == "exit":
+                breakpoint(input(), exit("STOPP"))
+
 
 if botname not in {"joakim", "fredrik", "alex", "jesper"}:
     print("You need to choose one of these bots: Joakim, Fredrik, Alex or Jesper")

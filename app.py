@@ -206,9 +206,9 @@ def addChatroomMessagesForUser(chatroomID, userId):
     #     "id": "f78f4c70-af0b-11eb-b4ff-051ddc0b6ae1",
     #     "username": "Joakim"
     # }
-
+    print(user + content['text'])
     #print(user)
-    if content == None:
+    if content['text'] is None:
         return "Need to provide a message"
     text = content['text']
     message = Message(text, user)
