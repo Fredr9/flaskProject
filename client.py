@@ -3,7 +3,8 @@ import json
 import requests
 
 url = "http://localhost:5000/api"
-commands = "Available commands: adduser, getusers, getchatrooms, addchatrooms or getmessages \n" \
+commands = "Available commands: adduser, getusers, deleteuser, getchatrooms, addchatrooms " \
+           "or getmessages \n" \
            "** or exit to stop the program:"
 # chooser = input(commands).lower()
 
@@ -17,7 +18,7 @@ while True:
         # if user[0] == user[1]:
         #    print(" the user already exist")
         username = {'username': input("Enter the name of the user you want to add:")}
-        newUser = requests.post('http://127.0. 0.1:5000/api/users', json=username)
+        newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
         print(newUser.json())
 
     if chooser == "getusers":
@@ -34,9 +35,14 @@ while True:
         #print(getUser.json())
 
     if chooser == "deleteuser":
-        useriD = requests.get('http://127.0.0.1:5000/api/users')
-        deleteuser = requests.delete('http://127.0.0.1:5000/api/users/<userId>')
-        print(deleteuser.json())
+        userid = input("Type the id of the user you want to delete:")
+        #useriD = requests.get('http://127.0.0.1:5000/api/users')
+        deleteuser = requests.delete('http://127.0.0.1:5000/api/users/{}'.format(userid))
+        checkifuserisdeleted = requests.post('http://127.0.0.1:5000/api/users/{}'.format(userid))
+        if checkifuserisdeleted is None:
+            print("Couldn't find user")
+        else:
+            print("User deleted")
 
     if chooser in ("addchatrooms", "addchatroom"):
         chatroom = {'chat-room': input("Add chatroom and you choose the name:")}
@@ -70,9 +76,8 @@ while True:
     if chooser == "exit":
         exit()
 
-    if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom", "getmessages"):
+    if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom", "getmessages", "deleteuser"):
         print("You need to specify what you want to do!")
 
-
     if __name__ == "__main__":
-        print('Finished')
+        print("***********\n\n")

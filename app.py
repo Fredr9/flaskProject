@@ -21,27 +21,6 @@ chatrooms = []
 idUser = [1, 2, 3, 4, 5, 6]
 idCounter = 0
 
-'''
-with open("bots.json", encoding="utf8") as file:
-    bots = json.load(file)
-
-words = []
-labels = []
-docs = []
-
-
-for intent in bots ["BotA", "BotB", "BotC", "BotD"]:
-    for pattern in intent["patterns"]:
-        wrds = nltk.word_tokenize(pattern)
-        words.extend(wrds)
-        docs.append(pattern)
-
-        if intent ["tag"] not in labels:
-            labels.append(intent["tag"])
-
-
-'''
-
 
 class Chatroom:
     def __init__(self, id, roomname):
@@ -66,7 +45,7 @@ class User:
 
 
 class Message:
-    def __init__(self, text, user) -> object:
+    def __init__(self, text, user):
         # self.id = str(id)
         self.text = text
         self.user = user
