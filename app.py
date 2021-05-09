@@ -278,6 +278,16 @@ def getUser(userId):
     return "No such user"
 
 
+# Find one specific chatroom
+@app.route('/api/chat-rooms/<chatroomID>', methods=['GET'])
+def getSpesificChatroom(chatroomID):
+    for i in range(len(chatrooms)):
+        if chatrooms[i].id == chatroomID:
+            return chatrooms[i]
+
+    return "No such chatroom"
+
+
 # Delete one specific user
 @app.route('/api/users/<userId>', methods=['DELETE'])
 def delete(userId):
