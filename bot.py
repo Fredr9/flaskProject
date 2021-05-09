@@ -213,11 +213,15 @@ elif botname == "jesper":
                            headers={"Content-Type": "application/json"})
 
 
-        messagesfromotherbots = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId))
-        print(messagesfromotherbots.text)
+
         print("\n ### A NEW MESSAGE POSTED ### \n")
         print(botname + ": " + text)
         print("\n### MESSAGE ENDED ###\n")
+
+        messagesfromotherbots = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId),
+                           json={"text": text},
+                           headers={"Content-Type": "application/json"})
+        print(messagesfromotherbots.text)
 
     else:
         # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')

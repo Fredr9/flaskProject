@@ -3,7 +3,7 @@ import json
 import requests
 
 url = "http://localhost:5000/api"
-commands = "Available commands: adduser, getusers, deleteuser, getchatrooms, addchatrooms " \
+commands = "Available commands: adduser, getusers, deleteuser, getchatrooms, addchatrooms, deletechatroom " \
            "or getmessages \n" \
            "** or exit to stop the program:"
 # chooser = input(commands).lower()
