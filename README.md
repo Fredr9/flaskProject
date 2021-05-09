@@ -5,7 +5,8 @@ This repository contains oblig 2 2410 for Alex(s336111), Jesper(s341861), Fredri
 
 ##General description about the solution
 
-The solution is coded in python 3 using flask. The solution consist of a server, client and bot.
+The solution is coded in python 3 using flask. 
+The solution consist of a server, client and bot.
 
 ##Limitations
 We have tried to add all the operations and restrictions that the task asked for but have struggled to add some functions and the global restrictions. 
@@ -56,7 +57,7 @@ but we couldnt make them post multiple messages or fetch all the messages in the
 If you run the bots multiple times, the bot will give messages depending on it is in the room or not from before.
 ###Running the client
 
-Run the client by typing $ python3 client.py.
+Run the client by typing `$ python3 client.py`.
 ####Supported commands
 
 ***adduser***: for adding a new user.
@@ -70,4 +71,5 @@ Run the client by typing $ python3 client.py.
 
 Remove?
 
-You will have to run the bot seperatly, and if you go too: http://127.0.0.1:5000/api/chat-rooms You can search for " text" and se the messages.
+You will have to run the bot seperatly, 
+and if you go too: http://127.0.0.1:5000/api/chat-rooms You can search for " text" and se the messages.
