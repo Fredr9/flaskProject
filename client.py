@@ -59,6 +59,7 @@ while True:
         id = input("Provide chatroom id:")
         # NEED TO FORMAT ID
         getSpecificChatRoom = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(id))
+        print("hello")
         messagetojson = getSpecificChatRoom.json()
         for i in range(len(messagetojson)):
             messages = json.loads(messagetojson[i])
