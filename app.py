@@ -117,19 +117,13 @@ def addUserChatroom(chatroomID):
 @app.route('/api/chat-rooms/<chatroomID>/messages', methods=['GET'])
 def getChatroomMessages(chatroomID):
     room = findChatRoom(chatroomID)
+    messagesStructured = request.json
+
+    print("************" + messagesStructured['text'])
     if (room == None):
         return "Cant find the room"
-    #print(request.url)
-    '''content = request.json()
-    if content is None:
-        return "UserId must be provided"
-    userId = content['userId']
-    user = getUser(userId)
-    if (user == None):
-        return "cant find user"
-        '''
-
     # Return all the users in the room
+
     return jsonify([message.toJSON() for message in room.messages])
 
 
@@ -139,16 +133,13 @@ def getChatroomMessagesFromUser(chatroomID, userId):
     room = findChatRoom(chatroomID)
     if (room == None):
         return "Cant find the room"
-
     user = findUserInChatroom(room, userId)
     if (user == None):
         return " Cant find the user in this room"
-
     userMessages = []
     for message in room.messages:
         if message.userId == user.id:  # Only add the messages you want
             userMessages.append(message)
-
     # Return all the messages to user in this room
     return jsonify([message.toJSON() for message in userMessages])
 
@@ -159,42 +150,19 @@ def addChatroomMessagesForUser(chatroomID, userId):
     room = findChatRoom(chatroomID)
     if (room == None):
         return " cant find the room"
-
     # Check if the user is in the room
     user = findUserInChatroom(room, userId)
     if user is None:
         return "The user is not in this room"
-
     # Read the message from request
     content = request.json
-    # content =  messages {'text': 'This is my second message'}
-    # user = {
-    #     "id": "f78f4c70-af0b-11eb-b4ff-051ddc0b6ae1",
-    #     "username": "Joakim"
-    # }
     print(user + content['text'])
     #print(user)
     if content['text'] is None:
         return "Need to provide a message"
     text = content['text']
     message = Message(text, user)
-    '''
-    print("CONTENT:")
-    print(content)
-    print("USER:")
-    print(user)
-    print("ROOOM:")
-    room.messages.append(str(message))  # Adding message in list of messages
-    melding = room.messages
-    print("ÅH ER DETTE FOR NÅE")
-    print(type(melding))
-    '''
     room.messages.append(message)  # Adding message in list of messages
-    #meldinger = json.dumps(room.messages, default=list)
-    #print(meldinger)
-    #for message in messages:
-    #    print(message.toJSON())
-    #print(room.messages.toJson)
     return "Messages added"
 
 

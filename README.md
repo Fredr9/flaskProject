@@ -15,9 +15,7 @@ What we have managed to create is a server where we can add chatrooms and users,
 we also have bots that can be added to the rooms.
 
 We have tried to implement every aspect of task 1 and 2, task 1 we feel like we got the most of it,
-but task 2 we haven't got al of the aspects correctly, task 3 was unfortunately out of reach for us this time. 
-Since we are three beginners in python, we just started learning it. 
-Hopefully we are gaining experience and learning a lot from this.
+but task 2 we haven't got all of the aspects correctly, task 3 was unfortunately out of reach for us this time.
 
 ##Prerequisite for running the solution
 

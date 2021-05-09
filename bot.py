@@ -221,6 +221,14 @@ elif botname == "jesper":
         messagesfromotherbots = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId),
                            json={"text": text},
                            headers={"Content-Type": "application/json"})
+        #Trying to extract and structure messages
+        '''
+        allmessages = []
+        for meldinger in messagesfromotherbots:
+            split = meldinger.split(bytes('text'))
+            allmessages.append(split[1])
+        print(allmessages)
+        '''
         print(messagesfromotherbots.text)
 
     else:
