@@ -1,4 +1,3 @@
-import collections
 import uuid
 
 # import nltk as nltk
@@ -121,13 +120,14 @@ def getChatroomMessages(chatroomID):
     if (room == None):
         return "Cant find the room"
     #print(request.url)
-    content = request.json()
+    '''content = request.json()
     if content is None:
         return "UserId must be provided"
     userId = content['userId']
     user = getUser(userId)
     if (user == None):
         return "cant find user"
+        '''
 
     # Return all the users in the room
     return jsonify([message.toJSON() for message in room.messages])
@@ -226,7 +226,7 @@ def getChatroom(chatroomID):
 # Abort functions
 def abort_if_exists(username):
     if username in users:
-        abort(409, message="User aleady exits")
+        abort(409, message="User aleady exist")
 
 
 def abort_if_not_reg(username):
@@ -283,9 +283,20 @@ def getUser(userId):
 def getSpesificChatroom(chatroomID):
     for i in range(len(chatrooms)):
         if chatrooms[i].id == chatroomID:
-            return chatrooms[i]
+            return chatrooms[i].toJSON()
 
     return "No such chatroom"
+
+
+# Delete one specific chatroom
+@app.route('/api/users/<chatroomID>', methods=['DELETE'])
+def deletechatroom(chatroomID):
+    index = findSpecificIndexChatroom(chatroomID)
+    if index == -1:
+        return "Cant find chatroom"
+
+    del users[index]
+    return "Chatroom deleted"
 
 
 # Delete one specific user
@@ -305,6 +316,13 @@ def findSpecificIndex(userId):
         if users[i].id == userId:
             return i
     return -1  # Did not find user
+
+# Function that find index of user
+def findSpecificIndexChatroom(chatroomID):
+    for i in range(len(chatrooms)):
+        if chatrooms[i].id == chatroomID:
+            return i
+    return -1  # Did not find Chatroom
 
 
 @app.route('/')

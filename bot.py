@@ -294,7 +294,10 @@ elif botname == "alex":
             print(botname + ": " + text)
             print("\n### MESSAGE ENDED ###\n")
             if input("Do you want to exit?") == "exit":
-                breakpoint(input(), exit("STOPP"))
+                breakpoint("Hello", exit("STOPP"))
+            else:
+                time.sleep(3)
+
             #breakpoint(time.sleep(9), exit("NÅ ER DET NOK!"))
 
     else:

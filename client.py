@@ -17,7 +17,7 @@ while True:
         # user.append(chooser)
         # if user[0] == user[1]:
         #    print(" the user already exist")
-        username = {'username': input("Enter the name of the user you want to add:")}
+        username = {'username': input("Enter the name of the user you want to add:\n")}
         newUser = requests.post('http://127.0.0.1:5000/api/users', json=username)
         print(newUser.json())
 
@@ -71,7 +71,6 @@ while True:
         else:
             print("Chatroom deleted")
 
-
     if chooser == "getmessages":
         id = input("Provide chatroom id:")
         # NEED TO FORMAT ID
@@ -79,7 +78,7 @@ while True:
         messagetojson = getSpecificChatRoom.json()
         for i in range(len(messagetojson)):
             messages = json.loads(messagetojson[i])
-            print(messages['message'] + ": ")
+            print(messages)
 
     if chooser == "LesMelding":
         print(requests.get('/api/chat-rooms/<chatroomID>/messages'))
@@ -87,7 +86,8 @@ while True:
     if chooser == "exit":
         exit()
 
-    if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms", "addchatroom", "getmessages", "deleteuser"):
+    if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms",
+                       "addchatroom", "getmessages", "deleteuser", "deletechatroom"):
         print("You need to specify what you want to do!")
 
     if __name__ == "__main__":
