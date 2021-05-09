@@ -5,11 +5,12 @@ import uuid
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse, abort
 import json
+import socket
 
 # import numpy
 # import tflearn
 # import tensorflow
-
+import client
 
 url = "http://127.0.0.1:5000/"
 app = Flask(__name__)
@@ -321,6 +322,15 @@ def findSpecificIndex(userId):
 @app.route('/')
 def server_start():
     return 'You need to specify path!'
+
+def socket_listening(host, port):
+    s = socket.socket()
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.bind((host, port))
+    s.listen()
+    print("funker s?")
+
+
 
 
 if __name__ == "__main__":
