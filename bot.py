@@ -339,13 +339,15 @@ elif botname == "alex":
             print(text2)
             print("\n### MESSAGE ENDED ###\n")
 
-            test = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
-                          headers={"Content-Type": "application/json"})
-            print(test)
+            #test = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(chatroomid, userid),
+            #              headers={"Content-Type": "application/json"})
+            #print(test)
             print("Good bye!")
-            if input("Do you want to exit?") == "exit":
+            if input("Do you want to exit?") == "exit" or newUser.status_code == 409:
                 breakpoint(input(), exit("STOPP"))
-
+            else:
+                if input() not in "exit":
+                    print("Continue:")
 
 if botname not in {"joakim", "fredrik", "alex", "jesper"}:
     print("You need to choose one of these bots: Joakim, Fredrik, Alex or Jesper")

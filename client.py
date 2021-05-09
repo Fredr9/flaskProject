@@ -23,7 +23,11 @@ while True:
     if chooser == "getusers":
         getUser = requests.get('http://127.0.0.1:5000/api/users')
         users = getUser.json()
+        #if users is None:
+        #    exit("There is not any users!")
         print("### Users ###\n")
+        #if users is None:
+        #    exit("There is not any users!")
         for i in range(len(users)):
             user = json.loads(users[i])
             print(user['username'] + ": " + user['id'] + "\n")
