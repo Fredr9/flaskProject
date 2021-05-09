@@ -61,6 +61,17 @@ while True:
         getSpecificChatRoom = requests.get('http://127.0.0.1:5000/api/chat-rooms')
         print(getSpecificChatRoom)
 
+    if chooser == "deletechatroom":
+        chatroomid = input("Type the id of the chatroom you want to delete:")
+        # useriD = requests.get('http://127.0.0.1:5000/api/users')
+        deletechatroom = requests.delete('http://127.0.0.1:5000/api/chat-rooms/{}'.format(chatroomid))
+        checkifchatroomisdeleted = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}'.format(chatroomid))
+        if checkifchatroomisdeleted is None:
+            print("Couldn't find chatroom")
+        else:
+            print("Chatroom deleted")
+
+
     if chooser == "getmessages":
         id = input("Provide chatroom id:")
         # NEED TO FORMAT ID
