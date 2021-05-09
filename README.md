@@ -69,6 +69,7 @@ Run the client by typing `$ python3 client.py`.
 ***getchatrooms***: to get current chatrooms
 
 
+
 Remove?
 
 You will have to run the bot seperatly, 
