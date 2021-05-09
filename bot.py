@@ -6,6 +6,8 @@ import time
 
 import requests
 
+
+
 url = "http://localhost:5000/api"
 availablebots = "Available bots are: Joakim, Fredrik, Alex or Jesper, Type the name of the bot you want too choose:"
 botname = input(availablebots).lower()
@@ -210,6 +212,9 @@ elif botname == "jesper":
                            json={"text": text},
                            headers={"Content-Type": "application/json"})
 
+
+        messagesfromotherbots = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId))
+        print(messagesfromotherbots.text)
         print("\n ### A NEW MESSAGE POSTED ### \n")
         print(botname + ": " + text)
         print("\n### MESSAGE ENDED ###\n")
