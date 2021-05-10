@@ -46,8 +46,12 @@ if botname == "joakim":
         print(" Joining a chatroom with name " + room['roomname'])
         # print(room['id'])
         # Make a variable with room id extracted
-        roomId = room['id']
+        #roomId = room['id']
         # Bot joining the first room:
+        roomId = input("Which room do you want the bot to join?" + " this are the availble rooms:\n " +
+                       str(data) +
+                       "\nInput roomid here:")
+
         f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                           headers={"Content-Type": "application/json"})
 
@@ -126,14 +130,16 @@ elif botname == "fredrik":
         room = json.loads(data[0])
         # print(room)
         # Printing the name of the room you are joining:
-        print(" Joining a chatroom with name " + room['roomname'])
+        #print(" Joining a chatroom with name " + room['roomname'])
         # print(room['id'])
         # Make a variable with room id extracted
-        roomId = room['id']
         # Bot joining the first room:
+        roomId = input("Which room do you want the bot to join?" + " this are the availble rooms:\n " +
+                       str(data) +
+                       "\nInput roomid here:")
+
         f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                           headers={"Content-Type": "application/json"})
-
         # Bot sends message:
 
         text = random.choice(greetingsFredrik)
@@ -212,11 +218,14 @@ elif botname == "jesper":
         print(" Joining a chatroom with name " + room['roomname'])
         # print(room['id'])
         # Make a variable with room id extracted
-        roomId = room['id']
-        # Bot joining the first room:
+        #roomId = room['id']
+        # Bot joining the room of your choice:
+        roomId = input("Which room do you want the bot to join?" + " this are the availble rooms:\n " +
+                       str(data) +
+                       "\nInput roomid here:")
+
         f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                           headers={"Content-Type": "application/json"})
-
         # Bot sends message:
 
         text = random.choice(greetingsJesper)
@@ -308,8 +317,12 @@ elif botname == "alex":
             print(" Joining a chatroom with name " + room['roomname'])
             # print(room['id'])
             # Make a variable with room id extracted
-            roomId = room['id']
-            # Bot joining the first room:
+            #roomId = room['id']
+            # Bot joining the room of your choice:
+            roomId = input("Which room do you want the bot to join?" + " this are the availble rooms:\n " +
+                           str(data) +
+                           "\nInput roomid here:")
+
             f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                               headers={"Content-Type": "application/json"})
 
