@@ -3,7 +3,7 @@ import json
 import requests
 
 url = "http://localhost:5000/api"
-commands = "Available commands: adduser, getusers, deleteuser, getchatrooms, addchatrooms, deletechatroom " \
+commands = "Available commands: adduser, getusers, deleteuser, getchatrooms, addchatrooms, deletechatroom, sendmessage " \
            "or getmessages \n" \
            "** or exit to stop the program:"
 # chooser = input(commands).lower()
@@ -80,6 +80,21 @@ while True:
             messages = json.loads(messagetojson[i])
             print(messages)
 
+    if chooser == "sendmessage":
+        roomId = input("Input room id of the room yoy want to send message in:")
+        userid = input("Input user id of the user you want to send message from:")
+        if roomId is not None:
+            requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
+                          headers={"Content-Type": "application/json"})
+        text = input("What would you like to say:")
+        if roomId and userid and text is not None:
+            re = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/{}/messages'.format(roomId, userid),
+                           json={"text": text},
+                           headers={"Content-Type": "application/json"})
+        print("\n ### A NEW MESSAGE POSTED ### \n")
+        print(userid + ": " + text)
+        print("\n### MESSAGE ENDED ###\n")
+
     if chooser == "LesMelding":
         print(requests.get('/api/chat-rooms/<chatroomID>/messages'))
 
@@ -87,7 +102,7 @@ while True:
         exit()
 
     if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms",
-                       "addchatroom", "getmessages", "deleteuser", "deletechatroom"):
+                       "addchatroom", "getmessages", "deleteuser", "deletechatroom", "sendmessage"):
         print("You need to specify what you want to do!")
 
     if __name__ == "__main__":
