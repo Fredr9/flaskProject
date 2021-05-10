@@ -48,12 +48,17 @@ if botname == "joakim":
         # Make a variable with room id extracted
         #roomId = room['id']
         # Bot joining the first room:
-        roomId = input("Which room do you want the bot to join?" + " this are the availble rooms:\n " +
-                       str(data) +
-                       "\nInput roomid here:")
+        print("\n\nWhich room do you want the bot to join?" + " this are the available rooms:\n ")
 
+        print("### Chatrooms ###\n")
+        for i in range(len(data)):
+            room = json.loads(data[i])
+            print(room['roomname'] + ": " + room['id'] + "\n")
+        roomId = input("\nInput roomid here:")
         f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                           headers={"Content-Type": "application/json"})
+
+        print("\n\n Joining a chatroom with name " + room['roomname'])
 
         # Bot sends message:
 
@@ -70,7 +75,15 @@ if botname == "joakim":
         messagesfromotherbots = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId),
                                              json={"text": text},
                                              headers={"Content-Type": "application/json"})
-        print(messagesfromotherbots.text)
+
+        # print(messagesfromotherbots.text)
+        print("*********************")
+        # Fetches the messages from the room
+        meldinger = json.loads(messagesfromotherbots.text)
+        for j in range(len(meldinger)):
+            melding = json.loads(meldinger[j])
+            user = json.loads(melding['user'])
+            print(user['username'] + ": " + melding['text'])
 
     else:
         # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
@@ -134,12 +147,17 @@ elif botname == "fredrik":
         # print(room['id'])
         # Make a variable with room id extracted
         # Bot joining the first room:
-        roomId = input("Which room do you want the bot to join?" + " this are the availble rooms:\n " +
-                       str(data) +
-                       "\nInput roomid here:")
+        print("\n\nWhich room do you want the bot to join?" + " this are the available rooms:\n ")
 
+        print("### Chatrooms ###\n")
+        for i in range(len(data)):
+            room = json.loads(data[i])
+            print(room['roomname'] + ": " + room['id'] + "\n")
+        roomId = input("\nInput roomid here:")
         f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                           headers={"Content-Type": "application/json"})
+
+        print("\n\n Joining a chatroom with name " + room['roomname'])
         # Bot sends message:
 
         text = random.choice(greetingsFredrik)
@@ -155,7 +173,15 @@ elif botname == "fredrik":
         messagesfromotherbots = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId),
                                              json={"text": text},
                                              headers={"Content-Type": "application/json"})
-        print(messagesfromotherbots.text)
+
+        # print(messagesfromotherbots.text)
+        print("*********************")
+        # Fetches the messages from the room
+        meldinger = json.loads(messagesfromotherbots.text)
+        for j in range(len(meldinger)):
+            melding = json.loads(meldinger[j])
+            user = json.loads(melding['user'])
+            print(user['username'] + ": " + melding['text'])
 
     else:
         # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
@@ -215,17 +241,23 @@ elif botname == "jesper":
         room = json.loads(data[0])
         # print(room)
         # Printing the name of the room you are joining:
-        print(" Joining a chatroom with name " + room['roomname'])
+
         # print(room['id'])
         # Make a variable with room id extracted
         #roomId = room['id']
         # Bot joining the room of your choice:
-        roomId = input("Which room do you want the bot to join?" + " this are the availble rooms:\n " +
-                       str(data) +
-                       "\nInput roomid here:")
+        # New
+        print("\n\nWhich room do you want the bot to join?" + " this are the available rooms:\n ")
 
+        print("### Chatrooms ###\n")
+        for i in range(len(data)):
+            room = json.loads(data[i])
+            print(room['roomname'] + ": " + room['id'] + "\n")
+        roomId = input("\nInput roomid here:")
         f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                           headers={"Content-Type": "application/json"})
+
+        print("\n\n Joining a chatroom with name " + room['roomname'])
         # Bot sends message:
 
         text = random.choice(greetingsJesper)
@@ -242,16 +274,15 @@ elif botname == "jesper":
         messagesfromotherbots = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId),
                            json={"text": text},
                            headers={"Content-Type": "application/json"})
-        print(messagesfromotherbots.text)
-        #Trying to extract and structure messages
-        '''
-        allmessages = []
-        for meldinger in messagesfromotherbots:
-            split = meldinger.split(bytes('text'))
-            allmessages.append(split[1])
-        print(allmessages)
-        '''
 
+        #print(messagesfromotherbots.text)
+        print("*********************")
+        # Fetches the messages from the room
+        meldinger = json.loads(messagesfromotherbots.text)
+        for j in range(len(meldinger)):
+            melding = json.loads(meldinger[j])
+            user = json.loads(melding['user'])
+            print(user['username'] + ": " + melding['text'])
 
     else:
         # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
@@ -319,12 +350,18 @@ elif botname == "alex":
             # Make a variable with room id extracted
             #roomId = room['id']
             # Bot joining the room of your choice:
-            roomId = input("Which room do you want the bot to join?" + " this are the availble rooms:\n " +
-                           str(data) +
-                           "\nInput roomid here:")
+            print("\n\nWhich room do you want the bot to join?" + " this are the available rooms:\n ")
 
+            print("### Chatrooms ###\n")
+            for i in range(len(data)):
+                room = json.loads(data[i])
+                print(room['roomname'] + ": " + room['id'] + "\n")
+            roomId = input("\nInput roomid here:")
             f = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
                               headers={"Content-Type": "application/json"})
+
+            print("\n\n Joining a chatroom with name " + room['roomname'])
+
 
             # Bot sends message:
 
@@ -336,18 +373,20 @@ elif botname == "alex":
             print("\n ### A NEW MESSAGE POSTED ### \n")
             print(botname + ": " + text)
             print("\n### MESSAGE ENDED ###\n")
-            '''
-            if input("Do you want to exit?") == "exit":
-                breakpoint("Hello", exit("STOPP"))
-            else:
-                time.sleep(3)
-            '''
-            #breakpoint(time.sleep(9), exit("NÅ ER DET NOK!"))
+
             # Bot gets messages in the room:
             messagesfromotherbots = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId),
                                                  json={"text": text},
                                                  headers={"Content-Type": "application/json"})
-            print(messagesfromotherbots.text)
+
+            # print(messagesfromotherbots.text)
+            print("*********************")
+            # Fetches the messages from the room
+            meldinger = json.loads(messagesfromotherbots.text)
+            for j in range(len(meldinger)):
+                melding = json.loads(meldinger[j])
+                user = json.loads(melding['user'])
+                print(user['username'] + ": " + melding['text'])
             breakpoint(print("its my time!", exit()))
 
     else:
