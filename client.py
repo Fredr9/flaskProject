@@ -66,6 +66,7 @@ while True:
         # useriD = requests.get('http://127.0.0.1:5000/api/users')
         deletechatroom = requests.delete('http://127.0.0.1:5000/api/chat-rooms/{}'.format(chatroomid))
         checkifchatroomisdeleted = requests.post('http://127.0.0.1:5000/api/chat-rooms/{}'.format(chatroomid))
+        print(checkifchatroomisdeleted.text)
         if checkifchatroomisdeleted is None:
             print("Couldn't find chatroom")
         else:
@@ -77,11 +78,13 @@ while True:
         getSpecificChatRoom = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(id))
         messagetojson = getSpecificChatRoom.json()
         for i in range(len(messagetojson)):
-            messages = json.loads(messagetojson[i])
-            print(messages)
+            message = json.loads(messagetojson[i])
+            user = json.loads(message['user'])
+            print(user['username'] + ": " + message['text'])
+
 
     if chooser == "sendmessage":
-        roomId = input("Input room id of the room yoy want to send message in:")
+        roomId = input("Input room id of the room you want to send message in:")
         userid = input("Input user id of the user you want to send message from:")
         if roomId is not None:
             requests.post('http://127.0.0.1:5000/api/chat-rooms/{}/users'.format(roomId), json={"userId": userid},
@@ -103,7 +106,7 @@ while True:
 
     if chooser not in ("adduser", "getusers", "getchatrooms", "addchatrooms",
                        "addchatroom", "getmessages", "deleteuser", "deletechatroom", "sendmessage"):
-        print("You need to specify what you want to do!")
+        print("\n\nYou need to specify what you want to do!")
 
     if __name__ == "__main__":
         print("***********\n\n")

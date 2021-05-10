@@ -27,7 +27,15 @@ class Chatroom:
         self.roomname = roomname
         self.users = []
         self.messages = []
+        '''
+    #tester:
+    def getMessages(self):
+        return self.messages
 
+    def getRoomname(self):
+        return self.roomname
+    # test ferdig
+    '''
     def toJSONChatroom(self):
         return json.dumps(self, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
@@ -37,7 +45,12 @@ class User:
     def __init__(self, id, username):
         self.id = str(id)
         self.username = username
-
+    '''
+    # TESTING:
+    def getName(self):
+        return self.username
+    #test ferdig
+    '''
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
@@ -48,7 +61,16 @@ class Message:
         # self.id = str(id)
         self.text = text
         self.user = user
+    '''
+    # TESTING:
+    def getUser(self):
+        return self.user
 
+    def getMessage(self):
+        return self.text
+
+    #test ferdig
+    '''
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
@@ -263,7 +285,7 @@ def deletechatroom(chatroomID):
     if index == -1:
         return "Cant find chatroom"
 
-    del users[index]
+    del chatrooms[index]
     return "Chatroom deleted"
 
 
@@ -285,7 +307,7 @@ def findSpecificIndex(userId):
             return i
     return -1  # Did not find user
 
-# Function that find index of user
+# Function that find index of chatroom
 def findSpecificIndexChatroom(chatroomID):
     for i in range(len(chatrooms)):
         if chatrooms[i].id == chatroomID:
