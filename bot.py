@@ -62,6 +62,12 @@ if botname == "joakim":
         print(botname + ": " + text)
         print("\n### MESSAGE ENDED ###\n")
 
+        # Bot gets messages in the room:
+        messagesfromotherbots = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId),
+                                             json={"text": text},
+                                             headers={"Content-Type": "application/json"})
+        print(messagesfromotherbots.text)
+
     else:
         # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
         # data2 = getChatrooms2.json()
@@ -138,6 +144,12 @@ elif botname == "fredrik":
         print("\n ### A NEW MESSAGE POSTED ### \n")
         print(botname + ": " + text)
         print("\n### MESSAGE ENDED ###\n")
+
+        # Bot gets messages in the room:
+        messagesfromotherbots = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId),
+                                             json={"text": text},
+                                             headers={"Content-Type": "application/json"})
+        print(messagesfromotherbots.text)
 
     else:
         # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
@@ -217,10 +229,11 @@ elif botname == "jesper":
         print("\n ### A NEW MESSAGE POSTED ### \n")
         print(botname + ": " + text)
         print("\n### MESSAGE ENDED ###\n")
-
+        # Bot gets messages in the room:
         messagesfromotherbots = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId),
                            json={"text": text},
                            headers={"Content-Type": "application/json"})
+        print(messagesfromotherbots.text)
         #Trying to extract and structure messages
         '''
         allmessages = []
@@ -229,7 +242,7 @@ elif botname == "jesper":
             allmessages.append(split[1])
         print(allmessages)
         '''
-        print(messagesfromotherbots.text)
+
 
     else:
         # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
@@ -310,12 +323,19 @@ elif botname == "alex":
             print("\n ### A NEW MESSAGE POSTED ### \n")
             print(botname + ": " + text)
             print("\n### MESSAGE ENDED ###\n")
+            '''
             if input("Do you want to exit?") == "exit":
                 breakpoint("Hello", exit("STOPP"))
             else:
                 time.sleep(3)
-
+            '''
             #breakpoint(time.sleep(9), exit("NÅ ER DET NOK!"))
+            # Bot gets messages in the room:
+            messagesfromotherbots = requests.get('http://127.0.0.1:5000/api/chat-rooms/{}/messages'.format(roomId),
+                                                 json={"text": text},
+                                                 headers={"Content-Type": "application/json"})
+            print(messagesfromotherbots.text)
+            breakpoint(print("its my time!", exit()))
 
     else:
         while True:
@@ -363,11 +383,14 @@ elif botname == "alex":
             #              headers={"Content-Type": "application/json"})
             #print(test)
             print("Good bye!")
+            '''
             if input("Do you want to exit?") == "exit" or newUser.status_code == 409:
                 breakpoint(input(), exit("STOPP"))
             else:
                 if input() not in "exit":
                     print("Continue:")
+            '''
+            breakpoint(print("its my time!", exit()))
 
 if botname not in {"joakim", "fredrik", "alex", "jesper"}:
     print("You need to choose one of these bots: Joakim, Fredrik, Alex or Jesper")

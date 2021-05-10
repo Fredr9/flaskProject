@@ -78,7 +78,7 @@ while True:
         messagetojson = getSpecificChatRoom.json()
         for i in range(len(messagetojson)):
             messages = json.loads(messagetojson[i])
-            print(messages['text'])
+            print(messages)
 
     if chooser == "LesMelding":
         print(requests.get('/api/chat-rooms/<chatroomID>/messages'))

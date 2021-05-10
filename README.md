@@ -58,10 +58,6 @@ The bot will enter a room if available or make a new one if there isn't any room
 Then send a message to the server in that room.
 Info about the bot
 
-****************************
-
-JEG HALLO
-****************************
 
 The bots doesn't quite behave the way we wanted them to. The bot can register and join an existing or create a new room, 
 but we havent found a way to get them to stay connected or reconnect. So a bot sends messages,
