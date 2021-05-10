@@ -139,9 +139,9 @@ def addUserChatroom(chatroomID):
 @app.route('/api/chat-rooms/<chatroomID>/messages', methods=['GET'])
 def getChatroomMessages(chatroomID):
     room = findChatRoom(chatroomID)
-    messagesStructured = request.json
+    #messagesStructured = request.json
 
-    print(str(messagesStructured) + "**********************")
+    #print(str(messagesStructured) + "**********************")
     if (room == None):
         return "Cant find the room"
     # Return all the users in the room
@@ -178,7 +178,7 @@ def addChatroomMessagesForUser(chatroomID, userId):
         return "The user is not in this room"
     # Read the message from request
     content = request.json
-    print(user + content['text'])
+    #print(user + content['text'])
     #print(user)
     if content['text'] is None:
         return "Need to provide a message"
@@ -189,9 +189,9 @@ def addChatroomMessagesForUser(chatroomID, userId):
 
 
 def findUserInChatroom(room, userId):
-    #print(userId)
+
     for i in range(len(room.users)):
-        #print(room.users)
+
         user = json.loads(room.users[i])
         if user['id'] == userId:
             return room.users[i]

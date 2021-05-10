@@ -1,7 +1,5 @@
 import json
 import random
-# import sys
-# from typing import Dict
 import time
 
 import requests
@@ -11,19 +9,20 @@ import requests
 url = "http://localhost:5000/api"
 availablebots = "Available bots are: Joakim, Fredrik, Alex or Jesper, Type the name of the bot you want too choose:"
 botname = input(availablebots).lower()
-# botname = sys.argv[1]
 
 # list of words
 
 greetingsJoakim = ["Hello", "Hi", "Hello there", "Heihei"]
 greetingsIfNoroomJoakim = ["Hello, I made a new ROOM even if it wasnt my job!",
                            "You didnt care to make a new room, so i did!"]
-greetingsFredrik = ["Hallo", "Hei", "Næmmen er det noen her", "Jeg har ankommet"]
-greetingsIfNoroomFredrik = ["Hello? anyone here? I make a room for anyone wants to join"]
-greetingsJesper = ["Hallo der", "God morgen", "morn", "Hvorfor er jeg her"]
-greetingsIfNoroomJesper = ["Looks like I have to make a room then"]
-greetingsAlex = ["Mr.Alex har ankommet festen", "Haihai", "welcome me", "I have arrived"]
-greetingsIfNoroomAlex = ["I have to take responsibility and make a room"]
+greetingsFredrik = ["Hallo", "Hei", "Oh is it really someone here??", "I have arrived!!", "Hey I'm Fredrik"]
+greetingsIfNoroomFredrik = ["Hello? anyone here? I made a room for anyone wants to join",
+                            "It was stricly necesseray for me to make a room, since it wasn't any rooms :S"]
+greetingsJesper = ["Hello there", "Good morning", "morning", "Why am i here?", "I'm confused but, hello!"]
+greetingsIfNoroomJesper = ["Looks like I had to make a room then",
+                           "Please don't punch me, but i had to make a room to stay in"]
+greetingsAlex = ["Mr.Alex has arrived to the party", "Haihai", "Welcome me", "I have arrived"]
+greetingsIfNoroomAlex = ["I had to take responsibility so i made a room"]
 
 if botname == "joakim":
     username = {'username': 'Joakim'}
@@ -41,12 +40,7 @@ if botname == "joakim":
 
     if len(data) > 0:
         room = json.loads(data[0])
-        # print(room)
-        # Printing the name of the room you are joining:
-        print(" Joining a chatroom with name " + room['roomname'])
-        # print(room['id'])
-        # Make a variable with room id extracted
-        #roomId = room['id']
+
         # Bot joining the first room:
         print("\n\nWhich room do you want the bot to join?" + " this are the available rooms:\n ")
 
@@ -83,7 +77,8 @@ if botname == "joakim":
         for j in range(len(meldinger)):
             melding = json.loads(meldinger[j])
             user = json.loads(melding['user'])
-            print(user['username'] + ": " + melding['text'])
+            print(user['username'] + ": " + melding['text'] + "\n")
+
 
     else:
         # getChatrooms2 = requests.get('http://127.0.0.1:5000/api/chat-rooms')
