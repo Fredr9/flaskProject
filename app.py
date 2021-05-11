@@ -1,14 +1,8 @@
 import uuid
 
-# import nltk as nltk
 from flask import Flask, request, jsonify
-from flask_restful import Api, Resource, reqparse, abort
+from flask_restful import Api, abort
 import json
-
-# import numpy
-# import tflearn
-# import tensorflow
-
 
 url = "http://127.0.0.1:5000/"
 app = Flask(__name__)
@@ -17,8 +11,6 @@ api = Api(app)
 # State when starting
 users = []
 chatrooms = []
-idUser = [1, 2, 3, 4, 5, 6]
-idCounter = 0
 
 
 class Chatroom:
@@ -27,15 +19,7 @@ class Chatroom:
         self.roomname = roomname
         self.users = []
         self.messages = []
-        '''
-    #tester:
-    def getMessages(self):
-        return self.messages
 
-    def getRoomname(self):
-        return self.roomname
-    # test ferdig
-    '''
     def toJSONChatroom(self):
         return json.dumps(self, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
@@ -45,12 +29,7 @@ class User:
     def __init__(self, id, username):
         self.id = str(id)
         self.username = username
-    '''
-    # TESTING:
-    def getName(self):
-        return self.username
-    #test ferdig
-    '''
+
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
@@ -61,16 +40,7 @@ class Message:
         # self.id = str(id)
         self.text = text
         self.user = user
-    '''
-    # TESTING:
-    def getUser(self):
-        return self.user
 
-    def getMessage(self):
-        return self.text
-
-    #test ferdig
-    '''
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
@@ -122,16 +92,16 @@ def addUserChatroom(chatroomID):
 
     # Read which user id that should be added from request-body
 
-    #print(request)
+    # print(request)
     content = request.json
-    #print(content)
+    # print(content)
     userId = content['userId']
     user = getUser(userId)
-    #print(user)
+    # print(user)
     if (user == "No such user"):
         return "Cant find user"
     room.users.append(user)  # ADding the user to teh room list
-    #print(room.toJSONChatroom())
+    # print(room.toJSONChatroom())
     return "The user was added"
 
 
@@ -139,9 +109,9 @@ def addUserChatroom(chatroomID):
 @app.route('/api/chat-rooms/<chatroomID>/messages', methods=['GET'])
 def getChatroomMessages(chatroomID):
     room = findChatRoom(chatroomID)
-    #messagesStructured = request.json
+    # messagesStructured = request.json
 
-    #print(str(messagesStructured) + "**********************")
+    # print(str(messagesStructured) + "**********************")
     if (room == None):
         return "Cant find the room"
     # Return all the users in the room
@@ -178,8 +148,8 @@ def addChatroomMessagesForUser(chatroomID, userId):
         return "The user is not in this room"
     # Read the message from request
     content = request.json
-    #print(user + content['text'])
-    #print(user)
+    # print(user + content['text'])
+    # print(user)
     if content['text'] is None:
         return "Need to provide a message"
     text = content['text']
@@ -189,7 +159,6 @@ def addChatroomMessagesForUser(chatroomID, userId):
 
 
 def findUserInChatroom(room, userId):
-
     for i in range(len(room.users)):
 
         user = json.loads(room.users[i])
@@ -249,6 +218,7 @@ def addUsers():
     return jsonify(user.id, username)
     # abort_if_exists(username)
 
+
 # Function that find user by username:
 def findUserByUsername(username):
     for i in range(len(users)):
@@ -273,20 +243,19 @@ def getUser(userId):
 def getSpesificChatroom(chatroomID):
     for i in range(len(chatrooms)):
         if chatrooms[i].id == chatroomID:
-            return chatrooms[i].toJSON()
-
+            return chatrooms[i].toJSONChatroom()
     return "No such chatroom"
 
 
 # Delete one specific chatroom
-@app.route('/api/users/<chatroomID>', methods=['DELETE'])
+@app.route('/api/chat-rooms/<chatroomID>', methods=['DELETE'])
 def deletechatroom(chatroomID):
     index = findSpecificIndexChatroom(chatroomID)
     if index == -1:
-        return "Cant find chatroom"
+        return "****Cant find chatroom****"
 
     del chatrooms[index]
-    return "Chatroom deleted"
+    return "****Chatroom deleted****"
 
 
 # Delete one specific user
@@ -294,10 +263,10 @@ def deletechatroom(chatroomID):
 def delete(userId):
     index = findSpecificIndex(userId)
     if index == -1:
-        return "Cant find user"
+        return "****Cant find user****"
 
     del users[index]
-    return "User deleted"
+    return "****User deleted****"
 
 
 # Function that find index of user
@@ -306,6 +275,7 @@ def findSpecificIndex(userId):
         if users[i].id == userId:
             return i
     return -1  # Did not find user
+
 
 # Function that find index of chatroom
 def findSpecificIndexChatroom(chatroomID):
