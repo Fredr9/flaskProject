@@ -17,9 +17,11 @@ we also have bots that can be added to the rooms.
 We have tried to implement every aspect of task 1 and 2, task 1 we feel like we got the most of it,
 but task 2 we haven't got all of the aspects correctly, task 3 was unfortunately out of reach for us this time.
 
+
 ##Prerequisite for running the solution
 
-In order to run the solution you need to have python, pip and flask. To install flask run the following in your terminal:
+In order to run the solution you need to have python, pip and flask. To install flask run the 
+following in your terminal:
 
 ``bash
 $ pip3 install flask
@@ -34,6 +36,7 @@ https://docs.python.org/3.8/library/uuid.html
 ##Running the solution
 
 The server must be running before you can start the client or bot.
+
 ##Starting the server
 
 To start the server type flask run in the terminal, or python3 app.py or just start the app.py in your compiler 
@@ -54,7 +57,8 @@ Fredrik then Fredrik starts from this list: Fredrik, Joakim, Alex and Jesper.
 
 For example: `python3 bot.py Joakim`
 
-The bot will enter a room if available or make a new one if there isn't any rooms, with an input so you can choose the name. 
+The bot will enter a room if available or make a new one if there isn't any rooms,
+with an input so you can choose the name. 
 Then send a message to the server in that room.
 Info about the bot
 
